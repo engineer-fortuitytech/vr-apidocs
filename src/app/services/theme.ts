@@ -47,7 +47,7 @@ export class Theme {
       return 'dark';
     }
 
-    return 'light';
+    return 'dark'; // default
   }
 
   private applyTheme(mode: ThemeMode): void {
