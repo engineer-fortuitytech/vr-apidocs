@@ -34,7 +34,7 @@ const HEALTHCHECK_PATH: string | null =
   styleUrl: './docs.css',
 })
 export class Docs  implements OnInit {
-  title = 'Appetite Check API';
+  title = 'Breeze API';
 
   loading = true;
   loadError: string | null = null;

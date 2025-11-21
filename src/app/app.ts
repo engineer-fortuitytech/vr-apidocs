@@ -23,7 +23,7 @@ const HEALTHCHECK_PATH: string | null =
   templateUrl: './app.html'
 })
 export class AppComponent implements OnInit {
-  title = 'Appetite Check API';
+  title = 'Breeze API';
 
   loading = true;
   loadError: string | null = null;

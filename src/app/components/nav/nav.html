@@ -1,67 +1,142 @@
 <nav
-  class="sticky top-0 z-50 backdrop-blur bg-slate-900/70 dark:bg-slate-900/60 border-b border-slate-800/70 px-4 py-3"
+  class="sticky top-0 z-50 backdrop-blur bg-slate-900/80 dark:bg-slate-900/70 border-b border-slate-800/70"
 >
-  <div class="max-w-6xl mx-auto flex items-center justify-between gap-8">
-    <!-- Left: Logo + Title -->
-    <div class="flex items-center gap-3">
-      <div
-        class="h-8 w-8 rounded-xl bg-sky-500 shadow-[0_0_12px_rgba(56,189,248,0.7)]
-               flex items-center justify-center text-slate-950 font-bold text-sm"
-      >
-        AC
+  <div class="max-w-6xl mx-auto px-4">
+    <!-- Top bar -->
+    <div class="flex items-center justify-between gap-4 py-3">
+      <!-- Left: Org logo placeholder + app title -->
+      <div class="flex items-center gap-3">
+        <!-- ORG LOGO PLACEHOLDER -->
+        <div
+          class="h-9 w-9 rounded-xl border border-slate-600/70 bg-slate-800 flex items-center justify-center overflow-hidden"
+        >
+          <!-- Replace this block with your real logo img -->
+          <span class="text-[0.65rem] font-semibold tracking-wide text-slate-300">
+            VR
+          </span>
+        </div>
+
+        <div class="flex flex-col">
+          <span class="text-sm font-semibold tracking-wide text-slate-100">
+            Breeze API
+          </span>
+          <span class="text-[0.7rem] text-slate-400">
+            API Developer Portal
+          </span>
+        </div>
       </div>
-      <span class="text-sm font-semibold tracking-wide text-slate-200">
-        Appetite Check
-      </span>
+
+      <!-- Center: desktop nav links -->
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a
+          routerLink="/"
+          routerLinkActive="text-sky-400"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="text-slate-300 hover:text-sky-300 transition"
+        >
+          Overview
+        </a>
+
+        <a
+          routerLink="/scenarios"
+          routerLinkActive="text-sky-400"
+          class="text-slate-300 hover:text-sky-300 transition"
+        >
+          Scenarios
+        </a>
+
+        <a
+          routerLink="/docs"
+          routerLinkActive="text-sky-400"
+          class="text-slate-300 hover:text-sky-300 transition"
+        >
+          API Docs
+        </a>
+      </div>
+
+      <!-- Right: theme toggle + mobile hamburger -->
+      <div class="flex items-center gap-2">
+        <!-- Theme toggle -->
+        <button
+          type="button"
+          (click)="toggleTheme()"
+          class="inline-flex items-center gap-2 rounded-full border border-slate-600/70 bg-slate-800/70 px-3 py-1.5 text-xs font-medium text-slate-300 hover:bg-slate-700/70 transition cursor-pointer"
+          aria-label="Toggle theme"
+        >
+          <span
+            class="inline-flex h-4 w-4 items-center justify-center rounded-full bg-yellow-300 text-[0.6rem] text-amber-900 dark:hidden"
+          >
+            ☀
+          </span>
+          <span
+            class="hidden h-4 w-4 items-center justify-center rounded-full bg-slate-700 text-[0.6rem] text-slate-100 dark:inline-flex"
+          >
+            🌙
+          </span>
+        </button>
+
+        <!-- Mobile menu button -->
+        <button
+          type="button"
+          class="inline-flex items-center justify-center rounded-md border border-slate-700/70 bg-slate-800/70 p-1.5 text-slate-200 hover:bg-slate-700/80 transition md:hidden"
+          (click)="toggleMobile()"
+          aria-label="Toggle navigation menu"
+        >
+          <!-- Hamburger / X icon using pure spans -->
+          <div class="space-y-0.5">
+            <span
+              class="block h-0.5 w-4 rounded bg-slate-200 transition-transform"
+              [class.translate-y-[3px]]="mobileOpen"
+              [class.rotate-45]="mobileOpen"
+            ></span>
+            <span
+              class="block h-0.5 w-4 rounded bg-slate-200 transition-opacity"
+              [class.opacity-0]="mobileOpen"
+            ></span>
+            <span
+              class="block h-0.5 w-4 rounded bg-slate-200 transition-transform"
+              [class.-translate-y-[3px]]="mobileOpen"
+              [class.-rotate-45]="mobileOpen"
+            ></span>
+          </div>
+        </button>
+      </div>
     </div>
 
-    <!-- Center: Nav links -->
-    <div class="hidden md:flex items-center gap-6 text-sm">
-      <a
-        routerLink="/"
-        routerLinkActive="text-sky-400"
-        class="text-slate-300 hover:text-sky-300 transition"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        Overview
-      </a>
-
-      <a
-        routerLink="/scenarios"
-        routerLinkActive="text-sky-400"
-        class="text-slate-300 hover:text-sky-300 transition"
-      >
-        Scenarios
-      </a>
-
-      <a
-        routerLink="/docs"
-        routerLinkActive="text-sky-400"
-        class="text-slate-300 hover:text-sky-300 transition"
-      >
-        API Docs
-      </a>
-    </div>
-
-    <!-- Right: Theme toggle -->
-    <button
-      type="button"
-      (click)="toggleTheme()"
-      class="inline-flex items-center gap-2 rounded-full border border-slate-600/70 bg-slate-800/70 px-3 py-1.5 text-xs font-medium text-slate-300 hover:bg-slate-700/70 transition cursor-pointer"
-      aria-label="Toggle theme"
+    <!-- Mobile drawer -->
+    <div
+      *ngIf="mobileOpen"
+      class="md:hidden border-t border-slate-800/80 pb-3"
     >
-      <!-- Light icon -->
-      <span
-        class="inline-flex h-4 w-4 items-center justify-center rounded-full bg-yellow-300 text-[0.6rem] text-amber-900 dark:hidden"
-      >
-        ☀
-      </span>
-      <!-- Dark icon -->
-      <span
-        class="hidden h-4 w-4 items-center justify-center rounded-full bg-slate-700 text-[0.6rem] text-slate-100 dark:inline-flex"
-      >
-        🌙
-      </span>
-    </button>
+      <div class="flex flex-col gap-1 pt-2 pb-1 text-sm">
+        <a
+          routerLink="/"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLinkActive="bg-slate-800/80 text-sky-300"
+          (click)="closeMobile()"
+          class="rounded-lg px-3 py-2 text-slate-200 hover:bg-slate-800/70 hover:text-sky-300 transition"
+        >
+          Overview
+        </a>
+
+        <a
+          routerLink="/scenarios"
+          routerLinkActive="bg-slate-800/80 text-sky-300"
+          (click)="closeMobile()"
+          class="rounded-lg px-3 py-2 text-slate-200 hover:bg-slate-800/70 hover:text-sky-300 transition"
+        >
+          Scenarios
+        </a>
+
+        <a
+          routerLink="/docs"
+          routerLinkActive="bg-slate-800/80 text-sky-300"
+          (click)="closeMobile()"
+          class="rounded-lg px-3 py-2 text-slate-200 hover:bg-slate-800/70 hover:text-sky-300 transition"
+        >
+          API Docs
+        </a>
+      </div>
+    </div>
   </div>
 </nav>
