@@ -1,0 +1,213 @@
+<div class="min-h-[calc(100vh-3rem)] bg-slate-50 text-slate-900
+         bg-gradient-to-b from-slate-100 to-slate-200
+         dark:bg-slate-950 dark:text-slate-100
+         dark:from-slate-900 dark:via-slate-950 dark:to-black">
+         
+    <div class="max-w-6xl mx-auto px-4 py-10">
+        <!-- Top hero -->
+        <header class="mb-10 space-y-4">
+            <div
+                class="inline-flex items-center gap-2 rounded-full border border-slate-600/60 bg-slate-900/70 px-3 py-1 text-[0.7rem] uppercase tracking-[0.2em] text-slate-400">
+                <span class="h-2 w-2 rounded-full bg-sky-400 shadow-[0_0_12px_rgba(56,189,248,0.8)]"></span>
+                Appetite Check API
+            </div>
+
+            <h1 class="text-3xl md:text-[2.5rem] font-semibold tracking-tight">
+                Integrate appetite intelligence into your apps.
+            </h1>
+
+            <p class="max-w-2xl text-sm text-slate-300">
+                The Appetite Check API lets you capture meal intents, validate orders, and power smart
+                menu flows in your own applications. Use it from mobile, web, or backend services with a
+                simple REST interface.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-3 mt-2">
+                <a routerLink="/docs"
+                    class="inline-flex items-center gap-2 rounded-full bg-sky-500 hover:bg-sky-400 text-slate-950 px-4 py-2 text-sm font-medium shadow-lg shadow-sky-500/40 transition">
+                    View API Reference
+                    <span class="text-xs">→</span>
+                </a>
+
+                <div class="flex flex-wrap gap-2 text-[0.75rem] text-slate-400">
+                    <span
+                        class="inline-flex items-center gap-1 rounded-full border border-slate-600/60 bg-slate-900/70 px-3 py-1">
+                        REST · JSON
+                    </span>
+                    <span
+                        class="inline-flex items-center gap-1 rounded-full border border-slate-600/60 bg-slate-900/70 px-3 py-1">
+                        Auth: API key (header)
+                    </span>
+                    <span
+                        class="inline-flex items-center gap-1 rounded-full border border-slate-600/60 bg-slate-900/70 px-3 py-1">
+                        Environment: Production
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Two-column content -->
+        <main class="grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)] items-start">
+            <!-- Left: how it works -->
+            <section
+                class="rounded-3xl border border-slate-700/70 bg-slate-900/80 shadow-2xl shadow-black/60 p-5 space-y-4">
+                <h2 class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">
+                    How to use the API
+                </h2>
+
+                <ol class="space-y-4 text-sm text-slate-200">
+                    <li class="flex gap-3">
+                        <div
+                            class="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-sky-500 text-[0.75rem] font-semibold text-slate-950">
+                            1
+                        </div>
+                        <div>
+                            <div class="font-medium text-slate-100">Get an API key</div>
+                            <p class="text-slate-400 text-xs mt-1">
+                                Obtain your API key from the Velocity Risk Partner team and store it securely. You’ll
+                                send it as a header on every request:
+                            </p>
+                            <pre
+                                class="mt-2 rounded-xl bg-slate-950 border border-slate-800/80 px-3 py-2 text-[0.7rem] overflow-x-auto"><code class="font-mono text-slate-100">x-api-key: &lt;YOUR_API_KEY&gt;</code></pre>
+                        </div>
+                    </li>
+
+                    <li class="flex gap-3">
+                        <div
+                            class="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-sky-500 text-[0.75rem] font-semibold text-slate-950">
+                            2
+                        </div>
+                        <div>
+                            <div class="font-medium text-slate-100">Call endpoints from your app</div>
+                            <p class="text-slate-400 text-xs mt-1">
+                                Use the REST endpoints to submit appetite checks, retrieve recommendations, and
+                                manage configurations. The API speaks standard JSON over HTTPS.
+                            </p>
+                            <div class="font-medium text-slate-100">Order of Operations.</div>
+                            <div class="text-slate-400 text-xs mt-1">
+                                Start by sending a POST request to the /appetite-check endpoint with user appetite
+                                data:
+                            </div>
+                            <pre
+                                class="mt-2 rounded-xl bg-slate-950 border border-slate-800/80 px-3 py-2 text-[0.7rem] overflow-x-auto">
+                                <code class="font-mono text-slate-100">
+                                   {{requestExample}}
+                                </code>
+                            </pre>
+                        </div>
+                    </li>
+
+                    <li class="flex gap-3">
+                        <div
+                            class="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-sky-500 text-[0.75rem] font-semibold text-slate-950">
+                            3
+                        </div>
+                        <div>
+                            <div class="font-medium text-slate-100">Handle responses gracefully</div>
+                            <p class="text-slate-400 text-xs mt-1">
+                                Responses return machine-friendly JSON plus HTTP status codes. You can plug results
+                                directly into UI components like “recommended dishes” or “menu sections”.
+                            </p>
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="mt-5 flex flex-wrap gap-3">
+                    <a routerLink="/docs"
+                        class="inline-flex items-center gap-2 rounded-full bg-sky-500 hover:bg-sky-400 text-slate-950 px-4 py-2 text-sm font-medium shadow-lg shadow-sky-500/40 transition">
+                        Jump to full API reference
+                        <span class="text-xs">→</span>
+                    </a>
+                    <span class="text-xs text-slate-500">
+                        Includes live-generated endpoints and code samples (cURL, JS, Python).
+                    </span>
+                </div>
+            </section>
+
+            <!-- Right: key features / use cases -->
+            <section class="space-y-4">
+                <div
+                    class="rounded-3xl border border-slate-700/70 bg-slate-900/80 shadow-2xl shadow-black/60 p-5 space-y-3">
+                    <h3 class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">
+                        Key features
+                    </h3>
+                    <ul class="space-y-2 text-sm text-slate-200">
+                        <li class="flex gap-2">
+                            <span class="mt-1 h-1.5 w-1.5 rounded-full bg-sky-400"></span>
+                            <div>
+                                <div class="font-medium">Structured appetite checks</div>
+                                <p class="text-xs text-slate-400">
+                                    Capture contextual info like time of day, dietary preferences, and hunger levels.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="flex gap-2">
+                            <span class="mt-1 h-1.5 w-1.5 rounded-full bg-sky-400"></span>
+                            <div>
+                                <div class="font-medium">Smart recommendations</div>
+                                <p class="text-xs text-slate-400">
+                                    Use the API’s scoring logic to surface suggested dishes or menu flows tailored to
+                                    each user.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="flex gap-2">
+                            <span class="mt-1 h-1.5 w-1.5 rounded-full bg-sky-400"></span>
+                            <div>
+                                <div class="font-medium">Operational monitoring</div>
+                                <p class="text-xs text-slate-400">
+                                    A built-in health check lets you quickly verify API availability from your
+                                    dashboards or uptime monitors.
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div
+                    class="rounded-3xl border border-slate-700/70 bg-slate-900/80 shadow-2xl shadow-black/60 p-5 space-y-3">
+                    <h3 class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">
+                        Typical use cases
+                    </h3>
+                    <ul class="space-y-2 text-sm text-slate-200">
+                        <li class="flex gap-2">
+                            <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+                            <div>
+                                <div class="font-medium">Restaurant apps</div>
+                                <p class="text-xs text-slate-400">
+                                    Suggest dishes based on appetite level, diet type, and previous orders.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="flex gap-2">
+                            <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+                            <div>
+                                <div class="font-medium">Nutrition planners</div>
+                                <p class="text-xs text-slate-400">
+                                    Combine appetite signals with macro targets to build daily or weekly meal plans.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="flex gap-2">
+                            <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+                            <div>
+                                <div class="font-medium">Chatbots / assistants</div>
+                                <p class="text-xs text-slate-400">
+                                    Let conversational agents call the API to decide when and what to suggest for the
+                                    next meal.
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="text-[0.75rem] text-slate-500 text-right">
+                    Ready to build?
+                    <a routerLink="/docs" class="text-sky-400 hover:text-sky-300 underline underline-offset-2">
+                        Open the API docs
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>

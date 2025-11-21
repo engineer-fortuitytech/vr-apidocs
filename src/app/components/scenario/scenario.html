@@ -1,0 +1,153 @@
+<div
+  class="min-h-[calc(100vh-3rem)] bg-slate-50 text-slate-900
+         bg-gradient-to-b from-slate-100 to-slate-200
+         dark:bg-slate-950 dark:text-slate-100
+         dark:from-slate-900 dark:via-slate-950 dark:to-black">
+         
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <header class="mb-8 space-y-4">
+      <div
+        class="inline-flex items-center gap-2 rounded-full border border-slate-600/60 bg-slate-900/70 px-3 py-1 text-[0.7rem] uppercase tracking-[0.2em] text-slate-400"
+      >
+        <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)]"></span>
+        Appetite Check · Scenarios
+      </div>
+
+      <h1 class="text-3xl md:text-[2.2rem] font-semibold tracking-tight">
+        End-to-end appetite & quoting flows.
+      </h1>
+
+      <p class="max-w-2xl text-sm text-slate-500 dark:text-slate-300">
+        These guided scenarios show how to orchestrate calls to the Classification, Risk Appetite
+        Check, and Quote APIs in different schedule configurations. Use them as blueprints for your
+        own integration flows.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-2 text-[0.75rem] text-slate-500 dark:text-slate-400">
+        <a
+          routerLink="/docs"
+          class="inline-flex items-center gap-2 rounded-full bg-sky-500 hover:bg-sky-400 text-slate-950 px-4 py-1.5 text-xs font-medium shadow-md shadow-sky-500/40 transition"
+        >
+          View raw API reference
+          <span class="text-[0.7rem]">→</span>
+        </a>
+        <span class="hidden md:inline text-slate-400 dark:text-slate-500">
+          Or pick a scenario below to see the recommended calling order.
+        </span>
+      </div>
+    </header>
+
+    <!-- Layout: scenario picker + details -->
+    <main class="grid gap-6 md:grid-cols-[minmax(0,1.4fr)_minmax(0,2fr)] items-start">
+      <!-- Scenario picker -->
+      <aside
+        class="rounded-3xl border border-slate-700/70 bg-slate-900/80 shadow-2xl shadow-black/60 p-4 space-y-3"
+      >
+        <div class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 mb-2">
+          Scenarios
+        </div>
+
+        <div class="space-y-2">
+          <button
+            *ngFor="let s of scenarios"
+            type="button"
+            (click)="setActiveScenario(s.id)"
+            class="w-full text-left rounded-2xl border px-3 py-2 text-sm transition
+                   border-slate-700/60 bg-slate-950/70 text-slate-300
+                   hover:border-sky-500/70 hover:text-sky-200
+                   flex items-start justify-between gap-2"
+            [class.border-sky-500/80]="activeScenarioId === s.id"
+            [class.bg-sky-950/60]="activeScenarioId === s.id"
+            [class.text-sky-100]="activeScenarioId === s.id"
+          >
+            <div>
+              <div class="font-medium">
+                {{ s.name }}
+              </div>
+              <div class="text-xs text-slate-400 dark:text-slate-400 mt-0.5">
+                {{ s.summary }}
+              </div>
+            </div>
+            <span
+              class="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full border border-slate-700/70 text-[0.65rem]"
+            >
+              <span *ngIf="activeScenarioId === s.id">✓</span>
+              <span *ngIf="activeScenarioId !== s.id">›</span>
+            </span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Scenario detail -->
+      <section
+        class="rounded-3xl border border-slate-700/70 bg-slate-900/80 shadow-2xl shadow-black/60 p-5 space-y-4"
+      >
+        <div class="space-y-2">
+          <h2 class="text-lg font-semibold text-slate-100">
+            {{ activeScenario.name }}
+          </h2>
+          <p class="text-sm text-slate-400">
+            {{ activeScenario.details }}
+          </p>
+        </div>
+
+        <div class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 mt-4">
+          Calling order
+        </div>
+
+        <ol class="space-y-4">
+          <li
+            *ngFor="let step of activeScenario.steps; let i = index"
+            class="rounded-2xl border border-slate-700/70 bg-slate-950/90 p-4 space-y-3"
+          >
+            <!-- Step header -->
+            <div class="flex items-start gap-3">
+              <div
+                class="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-sky-500 text-[0.75rem] font-semibold text-slate-950"
+              >
+                {{ i + 1 }}
+              </div>
+              <div class="space-y-1">
+                <div class="text-sm font-medium text-slate-100">
+                  {{ step.title }}
+                </div>
+                <p class="text-xs text-slate-400">
+                  {{ step.description }}
+                </p>
+              </div>
+            </div>
+
+            <!-- Request / Response code samples -->
+            <div class="grid gap-3 md:grid-cols-2">
+              <div>
+                <div class="text-[0.75rem] font-medium text-slate-400 mb-1">
+                  Sample request
+                </div>
+                <pre
+                  class="max-h-64 overflow-auto rounded-xl border border-slate-700/80 bg-slate-950 px-3 py-2 text-[0.7rem]"
+                ><code class="font-mono whitespace-pre text-slate-100">{{ step.requestExample }}</code></pre>
+              </div>
+
+              <div>
+                <div class="text-[0.75rem] font-medium text-slate-400 mb-1">
+                  Sample response
+                </div>
+                <pre
+                  class="max-h-64 overflow-auto rounded-xl border border-slate-700/80 bg-slate-950 px-3 py-2 text-[0.7rem]"
+                ><code class="font-mono whitespace-pre text-slate-100">{{ step.responseExample }}</code></pre>
+              </div>
+            </div>
+          </li>
+        </ol>
+
+        <div class="pt-2 text-[0.75rem] text-slate-500 text-right">
+          Tip: Wire these in order –
+          <span class="text-sky-300">Classification</span> →
+          <span class="text-sky-300">Risk Appetite Check</span> →
+          <span class="text-sky-300">Quote</span>.
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
