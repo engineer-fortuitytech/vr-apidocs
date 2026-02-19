@@ -1,5 +1,5 @@
 <div class="min-h-[calc(100vh-3rem)] bg-slate-50 text-slate-900
-         bg-gradient-to-b from-slate-100 to-slate-200
+         bg-linear-to-b from-slate-100 to-slate-200
          dark:bg-slate-950 dark:text-slate-100
          dark:from-slate-900 dark:via-slate-950 dark:to-black">
 
@@ -17,7 +17,9 @@
             </h1>
 
             <p class="max-w-2xl text-sm text-slate-300">
-                The Breeze API lets you search for business classifications, request appetite checks for businesses you'd like to quote, and power builds multiple product quotes on demand. Use it from mobile, web, or backend services with a
+                The Breeze API lets you search for business classifications, request appetite checks for businesses
+                you'd like to quote, and power builds multiple product quotes on demand. Use it from mobile, web, or
+                backend services with a
                 simple REST interface.
             </p>
 
@@ -55,12 +57,14 @@
                 </h2>
 
                 <ol class="space-y-4 text-sm text-slate-200">
-                    <li class="flex gap-3">
-                        <div
-                            class="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-sky-500 text-[0.75rem] font-semibold text-slate-950">
+                        <li class="grid grid-cols-[auto_1fr] gap-4 items-start">
+                            <div
+                            class=" mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-sky-500 text-[0.75rem] font-semibold text-slate-950">
                             1
+                            
                         </div>
-                        <div>
+                        
+                        <div class="min-w-0">
                             <div class="font-medium text-slate-100">Get an API key</div>
                             <p class="text-slate-400 text-xs mt-1">
                                 Obtain your API key from the Velocity Risk Partner team and store it securely. You’ll
@@ -71,41 +75,83 @@
                         </div>
                     </li>
 
-                    <li class="flex gap-3">
+                    <li class="grid grid-cols-[auto_1fr] gap-4 items-start">
                         <div
                             class="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-sky-500 text-[0.75rem] font-semibold text-slate-950">
                             2
                         </div>
-                        <div>
+                        <div class="min-w-0" >
                             <div class="font-medium text-slate-100">Call endpoints from your app</div>
                             <p class="text-slate-400 text-xs mt-1">
-                                Use the REST endpoints to find business classifications, request appetite checks for businesses you'd like to quote, and
+                                Use the REST endpoints to find business classifications, request appetite checks for
+                                businesses you'd like to quote, and
                                 create multiple quote types. The API speaks standard JSON over HTTPS.
                             </p>
                             <div class="font-medium text-slate-100">Order of Operations.</div>
                             <div class="text-slate-400 text-xs mt-1">
-                                Start by sending a POST request to the /appetite-check endpoint with user appetite
-                                data:
+                                <ol class="list-decimal list-inside space-y-1">
+                                    <li>
+                                        <span class="font-semibold"><b>Step 1:</b></span> Search for Occupancy using the <span
+                                            class="font-mono">/v1/Occupancy/SearchOccupancyData</span> endpoint.
+                                        <pre
+                                            class="mt-2 rounded-xl bg-slate-950 border border-slate-800/80 px-0 py-2 text-[0.7rem] overflow-x-auto">
+                                            <code class="font-mono text-slate-100">
+                                            {{occupancyRequestSample}}
+                                            </code>
+                                        </pre>
+                                    </li>
+                                    <li>
+                                        <span class="font-semibold">Step 2:</span> Once you've identified the <span
+                                            class="font-mono">classid</span> of the Occupancy(ies) you wish to write,
+                                        add the location and Occupancy(ies) to the Check Appetite payload.
+                                        <pre
+                                            class="mt-2 rounded-xl bg-slate-950 border border-slate-800/80 px-3 py-2 text-[0.7rem] overflow-x-auto">
+                                            <code class="font-mono text-slate-100">
+                                            {{appetiteCheckSample}}
+                                            </code>
+                                        </pre>
+                                    </li>
+                                    <li>
+                                        <span class="font-semibold">Step 3:</span> Submit your appetite check request
+                                        using the <span class="font-mono">/v1/RiskAppetiteChecker/CheckAppetite</span>
+                                        endpoint (see the Scenarios page for example payloads).
+                                        <pre
+                                            class="mt-2 rounded-xl bg-slate-950 border border-slate-800/80 px-3 py-2 text-[0.7rem] overflow-x-auto">
+                                            <code class="font-mono text-slate-100">
+                                            {{appetiteCheckSample}}
+                                            </code>
+                                        </pre>
+                                    </li>
+                                    <li>
+                                        <span class="font-semibold">Step 4:</span> If your request is <span
+                                            class="font-mono">Approved</span>, you may submit the Appetite check using
+                                        the returned <span class="font-mono">Check Id</span> and your producer code to
+                                        create a quote for the approved Product (e.g. BOP <span
+                                            class="font-mono">/v1/BOPAppetiteChecker/CreateQuoteOptions</span>, CPP
+                                        <span class="font-mono">/v2/AppetiteChecker/CreateRatedQuote/</span>). (See the
+                                        Scenarios page for example payloads.)
+                                        <pre
+                                            class="mt-2 rounded-xl bg-slate-950 border border-slate-800/80 px-3 py-2 text-[0.7rem] overflow-x-auto">
+                                            <code class="font-mono text-slate-100">
+                                            {{bopQuoteSample}}
+                                            </code>
+                                        </pre>
+                                    </li>
+                                </ol>
                             </div>
-                            <pre
-                                class="mt-2 rounded-xl bg-slate-950 border border-slate-800/80 px-3 py-2 text-[0.7rem] overflow-x-auto">
-                                <code class="font-mono text-slate-100">
-                                   {{requestExample}}
-                                </code>
-                            </pre>
                         </div>
                     </li>
 
-                    <li class="flex gap-3">
+                    <li class="grid grid-cols-[auto_1fr] gap-4 items-start">
                         <div
                             class="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-sky-500 text-[0.75rem] font-semibold text-slate-950">
                             3
                         </div>
-                        <div>
+                        <div class="min-w-0">
                             <div class="font-medium text-slate-100">Handle responses gracefully</div>
                             <p class="text-slate-400 text-xs mt-1">
                                 Responses return machine-friendly JSON plus HTTP status codes. You can plug results
-                                directly into UI components like “recommended dishes” or “menu sections”.
+                                directly into UI components like "Approved quote" or "Occupancy Accepted".
                             </p>
                         </div>
                     </li>
@@ -136,17 +182,18 @@
                             <div>
                                 <div class="font-medium">Structured appetite checks</div>
                                 <p class="text-xs text-slate-400">
-                                    Capture contextual info like time of day, dietary preferences, and hunger levels.
+                                    Check Appetite for CPP and BOP products with a single API call, using structured
+                                    signals like business type, size, and risk factors.
                                 </p>
                             </div>
                         </li>
                         <li class="flex gap-2">
                             <span class="mt-1 h-1.5 w-1.5 rounded-full bg-sky-400"></span>
                             <div>
-                                <div class="font-medium">Smart recommendations</div>
+                                <div class="font-medium">Simplify Quoting</div>
                                 <p class="text-xs text-slate-400">
-                                    Use the API’s scoring logic to surface suggested dishes or menu flows tailored to
-                                    each user.
+                                    Receive indicative quotes for BOP and CPP products and create and submit a quote to
+                                    underwriting with a single API call
                                 </p>
                             </div>
                         </li>
@@ -172,18 +219,20 @@
                         <li class="flex gap-2">
                             <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
                             <div>
-                                <div class="font-medium">Restaurant apps</div>
+                                <div class="font-medium">Occupancy Availability</div>
                                 <p class="text-xs text-slate-400">
-                                    Suggest dishes based on appetite level, diet type, and previous orders.
+                                    Quickly check if a business is within appetite for CPP or BOP products based on
+                                    natural language inputs.
                                 </p>
                             </div>
                         </li>
                         <li class="flex gap-2">
                             <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
                             <div>
-                                <div class="font-medium">Nutrition planners</div>
+                                <div class="font-medium">Appetite Verification</div>
                                 <p class="text-xs text-slate-400">
-                                    Combine appetite signals with macro targets to build daily or weekly meal plans.
+                                    Verify if a business and/or property location is within appetite for CPP and BOP
+                                    products with a single API call.
                                 </p>
                             </div>
                         </li>
@@ -192,8 +241,8 @@
                             <div>
                                 <div class="font-medium">Chatbots / assistants</div>
                                 <p class="text-xs text-slate-400">
-                                    Let conversational agents call the API to decide when and what to suggest for the
-                                    next meal.
+                                    Let conversational agents call the API to help users find relevant insurance
+                                    products, check appetite, and get quotes in real time.
                                 </p>
                             </div>
                         </li>
