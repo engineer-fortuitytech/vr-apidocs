@@ -1,0 +1,45 @@
+{
+  "trailingSlash": "auto",
+  "routes":[
+     {
+            "route":"/assets/*.{png,jpg,gif}",
+            "headers": {
+                "Cache-Control": "public, max-age=604800, immutable"
+              }
+        },
+        {
+            "route":"/assets/home/*.{png,jpg,gif}",
+            "headers": {
+                "Cache-Control": "public, max-age=604800, immutable"
+              }
+        }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": [
+      "/assets/*",
+      "/*.{css,js,ico,png,jpg,jpeg,gif,svg,webp,woff,woff2,ttf,eot,json,txt,map}"
+    ]
+  },
+  "responseOverrides": {
+      "400": {
+        "rewrite": "/index.html"
+      },
+      "401": {
+        "redirect": "/index.html",
+        "statusCode": 302
+      },
+      "404": {
+        "rewrite": "/index.html"
+      }
+    },
+  "globalHeaders": {
+    "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' ; frame-src 'none'",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "strict-origin-when-cross-origin"
+  },
+  "mimeTypes": {
+    ".json": "application/json"
+  }
+}
