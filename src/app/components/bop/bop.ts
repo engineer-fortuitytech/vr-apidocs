@@ -207,28 +207,29 @@ export class Bop implements OnInit {
   ];
 
   roofShapeValues: FieldValue[] = [
-    { value: 'Flat', description: 'Horizontal or very low-slope roof' },
-    { value: 'Gabled', description: 'Two-sided pitched roof meeting at a central ridge' },
+   { value: 'Flat', description: 'Horizontal or very low-slope roof' },
+    { value: 'Gable end without bracing', description: 'Two-sided pitched roof meeting at a central ridge' },
+    { value: 'Gable end with bracing', description: 'Two-sided pitched roof meeting at a central ridge with additional structural support' },
     { value: 'Hip', description: 'All four sides slope downward to the walls' },
     { value: 'Mansard', description: 'Double-pitched roof with a steep lower slope' },
     { value: 'Gambrel', description: 'Barn-style double-pitched roof' },
     { value: 'Stepped', description: 'Multiple flat sections at different heights' },
     { value: 'Shed', description: 'Single sloping plane, one ridge' },
-    { value: 'Sawtooth', description: 'Series of ridges resembling saw teeth' },
-    { value: 'Bowstring', description: 'Arched truss roof structure' },
+    { value: 'Pyramid', description: 'Pyramid-shaped roof structure' },
+    { value: 'Complex', description: 'Complex roof structure with multiple intersecting planes' },
   ];
 
   roofCoverValues: FieldValue[] = [
     { value: 'Asphalt Shingles', description: 'Standard asphalt composition shingles' },
     { value: 'Built-up roof without gravel', description: 'Multiple plies of bitumen without gravel surfacing' },
     { value: 'Built-up roof with gravel', description: 'Multiple plies of bitumen with aggregate surfacing' },
-    { value: 'Metal', description: 'Standing seam or corrugated metal panels' },
-    { value: 'Modified Bitumen', description: 'Polymer-modified asphalt membrane' },
-    { value: 'Single Ply - TPO', description: 'Thermoplastic polyolefin membrane' },
-    { value: 'Single Ply - EPDM', description: 'Synthetic rubber (ethylene propylene diene monomer) membrane' },
-    { value: 'Single Ply - PVC', description: 'Polyvinyl chloride membrane' },
-    { value: 'Tile', description: 'Clay or concrete tile' },
-    { value: 'Wood Shake/Shingles', description: 'Split or sawn wood roofing material' },
+    { value: 'Light Metal Panels', description: 'Standing seam or corrugated metal panels' },
+    { value: 'Standing Seam Metal Roofs', description: 'Metal roofs with interlocking seams' },
+    { value: 'Hurricane Wind-Rated Roof Coverings', description: 'Roof coverings that meet specific wind resistance standards' },
+    { value: 'Single Ply Membrane', description: 'Thermoplastic polyolefin membrane' },
+    { value: 'Single Ply Membrane Ballasted', description: 'Polyvinyl chloride membrane' },
+    { value: 'Clay/Concrete Tiles', description: 'Clay or concrete tile' },
+    { value: 'Wooden Shingles', description: 'Split or sawn wood roofing material' },
     { value: 'Slate', description: 'Natural or synthetic slate tiles' },
   ];
 
