@@ -235,10 +235,11 @@ export class Bop implements OnInit {
   exteriorMaterialValues: FieldValue[] = [
     { value: 'Frame', description: 'Combustible wood frame construction (ISO Class 1)' },
     { value: 'Joisted Masonry', description: 'Masonry exterior walls with wood/combustible floor and roof (ISO Class 2)' },
+    { value: 'Light Metal Frame', description: 'Metal frame with non-combustible exterior but combustible floor/roof (ISO Class 3A)' },
     { value: 'Non-combustible', description: 'Non-combustible or slow-burning materials — steel frame (ISO Class 3)' },
     { value: 'Masonry Non-Combustible', description: 'Masonry walls with non-combustible floor and roof (ISO Class 4)' },
-    { value: 'Modified Fire-Resistive', description: 'Fire-resistive construction with some combustible elements (ISO Class 5)' },
-    { value: 'Fire-Resistive', description: 'Reinforced concrete or protected steel — fully fire-resistive (ISO Class 6)' },
+    { value: 'Modified Fire Resistive', description: 'Fire-resistive construction with some combustible elements (ISO Class 5)' },
+    { value: 'Fire Resistive', description: 'Reinforced concrete or protected steel — fully fire-resistive (ISO Class 6)' },
   ];
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
