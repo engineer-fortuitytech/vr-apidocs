@@ -13,6 +13,13 @@ import {
   EndpointParam,
   METHOD_ORDER
 } from '../../types/types';
+import {
+  type FieldValue,
+  type SampleRow,
+  CONTENT,
+} from '../../data/content.data';
+
+export type { FieldValue, SampleRow };
 
 const OPENAPI_URL = 'https://appetitecheck-uat.fortuitytech.com';
 
@@ -25,22 +32,6 @@ const BOP_ALLOWED_OPERATIONS = [
   'GetRatedQuote',
   'CreateRatedQuote'
 ];
-
-export interface FieldValue {
-  value: string;
-  description: string;
-}
-
-export interface SampleRow {
-  id: string;
-  title: string;
-  description: string;
-  method: string;
-  path: string;
-  request: string;
-  response: string;
-  expanded: boolean;
-}
 
 @Component({
   selector: 'app-bop',
@@ -64,184 +55,11 @@ export class Bop implements OnInit {
   statusLastChecked: string | null = null;
   statusSourceLabel = 'health endpoint';
 
-  sampleRows: SampleRow[] = [
-    {
-      id: 'occupancy-search',
-      title: 'Search Occupancy',
-      description: 'Find class IDs, GL and NAICS codes for a business description.',
-      method: 'POST',
-      path: '/v1/Occupancy/SearchOccupancyData',
-      request: `POST /v1/Occupancy/SearchOccupancyData
-{
-  "searchText": "pizza restaurant",
-  "numResults": 3,
-  "lineOfBusiness": "BOP"
-}`,
-      response: `{
-  "results": [
-    {
-      "score": 425.68,
-      "classId": "8cdb763a94e373b056da0f48b882c72b3f9014447586fb29f9fedb91d443e7f1",
-      "occupancy_class": "Restaurant-Limited-Cooking",
-      "occupancy_category": "Pizza Shops",
-      "licenseClass": ["BOP", "CPP"],
-      "eligible": "Yes",
-      "classification": {
-        "id": "Pizza Shops",
-        "description": "Pizza Shops",
-        "glClassCode": "9211",
-        "naicsCode": "722210",
-        "eligible": "Yes",
-        "maxLiabLimit": "1000000/1000000/1000000",
-        "occupantLiabilityBase": "SALES"
-      }
-    }
-  ]
-}`,
-      expanded: false
-    },
-    {
-      id: 'check-appetite',
-      title: 'Check Appetite (BOP)',
-      description: 'Submit a location with occupancies to determine BOP underwriting appetite.',
-      method: 'POST',
-      path: '/v1/BOPAppetiteChecker/CheckAppetite',
-      request: `POST /v1/BOPAppetiteChecker/CheckAppetite
-{
-  "businessName": "Main Street Pizza",
-  "state": "FL",
-  "effectiveDate": "2026-06-01",
-  "locations": [
-    {
-      "locationNumber": 1,
-      "buildingNumber": 1,
-      "buildingDescription": "Restaurant Building",
-      "yearBuilt": 2005,
-      "tiv": 850000,
-      "constructionType": "Joisted Masonry",
-      "roofReplacementYear": 2018,
-      "roofCover": "Built-up roof without gravel",
-      "roofShape": "Flat",
-      "squareFootage": 3200,
-      "stories": 1,
-      "occupancyType": "Restaurant",
-      "classId": "8cdb763a94e373b056da0f48b882c72b3f9014447586fb29f9fedb91d443e7f1",
-      "buildingAddress": {
-        "street1": "450 Main St",
-        "city": "Orlando",
-        "state": "FL",
-        "postal": "32801",
-        "county": "Orange County"
-      },
-      "propertyCoverages": [
-        { "name": "Coverage A", "description": "Building", "type": "fixed", "limit": 850000, "deductible": 0 },
-        { "name": "Coverage C", "description": "Business Personal Property", "type": "fixed", "limit": 100000, "deductible": 0 }
-      ]
-    }
-  ]
-}`,
-      response: `{
-  "bopAppetiteCheckResult": [
-    {
-      "checkId": "fbed2705-598e-4378-8409-86918e081f8a",
-      "underwritingIndication": "Approve",
-      "quoteUrl": "https://appetitecheck-uat.fortuitytech.com/v1/BOPAppetiteChecker/GetAppetiteCheck/fbed2705-598e-4378-8409-86918e081f8a",
-      "quoteUnderwriting": [
-        { "decision": "Approve", "source": "TIV", "reason": "TIV: $850,000.00" },
-        { "decision": "Approve", "source": "Roof Cover Step", "reason": "Built-up roof without gravel is eligible" },
-        { "decision": "Approve", "source": "State Eligibility", "reason": "State Eligibility: FL" },
-        { "decision": "Approve", "source": "Occupancy Type", "reason": "Occupancy Type: Restaurant" }
-      ]
-    }
-  ]
-}`,
-      expanded: false
-    },
-    {
-      id: 'create-rated-quote',
-      title: 'Create Rated Quote (BOP)',
-      description: 'Generate a rated BOP quote from an approved appetite check ID.',
-      method: 'POST',
-      path: '/v1/BOPAppetiteChecker/CreateRatedQuote',
-      request: `POST /v1/BOPAppetiteChecker/CreateRatedQuote
-{
-  "appetiteCheckId": "fbed2705-598e-4378-8409-86918e081f8a",
-  "producerId": "28543",
-  "verificationQuestion": "Yes",
-  "coverageType": "WNDAOP"
-}`,
-      response: `{
-  "CheckId": "fbed2705-598e-4378-8409-86918e081f8a",
-  "QuoteId": "QT-00007652",
-  "QuoteLocation": "https://vru-uat.guidewire.net/coreapi/v5/applications/12002",
-  "QuoteType": "WNDAOP",
-  "QuoteOptions": [
-    {
-      "CoverageName": "PolicyWIND",
-      "CoverageDescription": "Wind/Hail Coverage",
-      "CoveragePremium": "2900.00",
-      "DeductibleOptions": [
-        { "DeductibleName": "Deductible1", "DeductibleAmount": "3", "DeductibleType": "percentage", "DeductibleDisplay": "3%" }
-      ]
-    },
-    {
-      "CoverageName": "PolicyAOP",
-      "CoverageDescription": "All Other Perils",
-      "CoveragePremium": "480.00",
-      "DeductibleOptions": [
-        { "DeductibleName": "Deductible1", "DeductibleAmount": "10000", "DeductibleType": "currency", "DeductibleDisplay": "$10,000.00" }
-      ]
-    },
-    {
-      "CoverageName": "Cyber",
-      "CoverageDescription": "Cyber Liability",
-      "CoveragePremium": "224.00",
-      "DeductibleOptions": [
-        { "DeductibleName": "Deductible1", "DeductibleAmount": "1000", "DeductibleType": "currency", "DeductibleDisplay": "$1,000.00" }
-      ]
-    }
-  ]
-}`,
-      expanded: false
-    }
-  ];
+  sampleRows: SampleRow[] = CONTENT.bop.sampleRows.map(r => ({ ...r }));
 
-  roofShapeValues: FieldValue[] = [
-   { value: 'Flat', description: 'Horizontal or very low-slope roof' },
-    { value: 'Gable end without bracing', description: 'Two-sided pitched roof meeting at a central ridge' },
-    { value: 'Gable end with bracing', description: 'Two-sided pitched roof meeting at a central ridge with additional structural support' },
-    { value: 'Hip', description: 'All four sides slope downward to the walls' },
-    { value: 'Mansard', description: 'Double-pitched roof with a steep lower slope' },
-    { value: 'Gambrel', description: 'Barn-style double-pitched roof' },
-    { value: 'Stepped', description: 'Multiple flat sections at different heights' },
-    { value: 'Shed', description: 'Single sloping plane, one ridge' },
-    { value: 'Pyramid', description: 'Pyramid-shaped roof structure' },
-    { value: 'Complex', description: 'Complex roof structure with multiple intersecting planes' },
-  ];
-
-  roofCoverValues: FieldValue[] = [
-    { value: 'Asphalt Shingles', description: 'Standard asphalt composition shingles' },
-    { value: 'Built-up roof without gravel', description: 'Multiple plies of bitumen without gravel surfacing' },
-    { value: 'Built-up roof with gravel', description: 'Multiple plies of bitumen with aggregate surfacing' },
-    { value: 'Light Metal Panels', description: 'Standing seam or corrugated metal panels' },
-    { value: 'Standing Seam Metal Roofs', description: 'Metal roofs with interlocking seams' },
-    { value: 'Hurricane Wind-Rated Roof Coverings', description: 'Roof coverings that meet specific wind resistance standards' },
-    { value: 'Single Ply Membrane', description: 'Thermoplastic polyolefin membrane' },
-    { value: 'Single Ply Membrane Ballasted', description: 'Polyvinyl chloride membrane' },
-    { value: 'Clay/Concrete Tiles', description: 'Clay or concrete tile' },
-    { value: 'Wooden Shingles', description: 'Split or sawn wood roofing material' },
-    { value: 'Slate', description: 'Natural or synthetic slate tiles' },
-  ];
-
-  exteriorMaterialValues: FieldValue[] = [
-    { value: 'Frame', description: 'Combustible wood frame construction (ISO Class 1)' },
-    { value: 'Joisted Masonry', description: 'Masonry exterior walls with wood/combustible floor and roof (ISO Class 2)' },
-    { value: 'Light Metal Frame', description: 'Metal frame with non-combustible exterior but combustible floor/roof (ISO Class 3A)' },
-    { value: 'Non-combustible', description: 'Non-combustible or slow-burning materials — steel frame (ISO Class 3)' },
-    { value: 'Masonry Non-Combustible', description: 'Masonry walls with non-combustible floor and roof (ISO Class 4)' },
-    { value: 'Modified Fire Resistive', description: 'Fire-resistive construction with some combustible elements (ISO Class 5)' },
-    { value: 'Fire Resistive', description: 'Reinforced concrete or protected steel — fully fire-resistive (ISO Class 6)' },
-  ];
+  roofShapeValues: FieldValue[] = CONTENT.bop.roofShapeValues;
+  roofCoverValues: FieldValue[] = CONTENT.bop.roofCoverValues;
+  exteriorMaterialValues: FieldValue[] = CONTENT.bop.exteriorMaterialValues;
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 

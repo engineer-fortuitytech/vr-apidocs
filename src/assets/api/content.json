@@ -1,0 +1,461 @@
+{
+  "generated": "2026-05-04T14:40:24.415Z",
+  "pages": {
+    "bop": {
+      "sampleRows": [
+        {
+          "id": "occupancy-search",
+          "title": "Search Occupancy",
+          "description": "Find class IDs, GL and NAICS codes for a business description.",
+          "method": "POST",
+          "path": "/v1/Occupancy/SearchOccupancyData",
+          "request": "POST /v1/Occupancy/SearchOccupancyData\n{\n  \"searchText\": \"pizza restaurant\",\n  \"numResults\": 3,\n  \"lineOfBusiness\": \"BOP\"\n}",
+          "response": "{\n  \"results\": [\n    {\n      \"score\": 425.68,\n      \"classId\": \"8cdb763a94e373b056da0f48b882c72b3f9014447586fb29f9fedb91d443e7f1\",\n      \"occupancy_class\": \"Restaurant-Limited-Cooking\",\n      \"occupancy_category\": \"Pizza Shops\",\n      \"licenseClass\": [\"BOP\", \"CPP\"],\n      \"eligible\": \"Yes\",\n      \"classification\": {\n        \"id\": \"Pizza Shops\",\n        \"description\": \"Pizza Shops\",\n        \"glClassCode\": \"9211\",\n        \"naicsCode\": \"722210\",\n        \"eligible\": \"Yes\",\n        \"maxLiabLimit\": \"1000000/1000000/1000000\",\n        \"occupantLiabilityBase\": \"SALES\"\n      }\n    }\n  ]\n}",
+          "expanded": false
+        },
+        {
+          "id": "check-appetite",
+          "title": "Check Appetite (BOP)",
+          "description": "Submit a location with occupancies to determine BOP underwriting appetite.",
+          "method": "POST",
+          "path": "/v1/BOPAppetiteChecker/CheckAppetite",
+          "request": "POST /v1/BOPAppetiteChecker/CheckAppetite\n{\n  \"businessName\": \"Main Street Pizza\",\n  \"state\": \"FL\",\n  \"effectiveDate\": \"2026-06-01\",\n  \"locations\": [\n    {\n      \"locationNumber\": 1,\n      \"buildingNumber\": 1,\n      \"buildingDescription\": \"Restaurant Building\",\n      \"yearBuilt\": 2005,\n      \"tiv\": 850000,\n      \"constructionType\": \"Joisted Masonry\",\n      \"roofReplacementYear\": 2018,\n      \"roofCover\": \"Built-up roof without gravel\",\n      \"roofShape\": \"Flat\",\n      \"squareFootage\": 3200,\n      \"stories\": 1,\n      \"occupancyType\": \"Restaurant\",\n      \"classId\": \"8cdb763a94e373b056da0f48b882c72b3f9014447586fb29f9fedb91d443e7f1\",\n      \"buildingAddress\": {\n        \"street1\": \"450 Main St\",\n        \"city\": \"Orlando\",\n        \"state\": \"FL\",\n        \"postal\": \"32801\",\n        \"county\": \"Orange County\"\n      },\n      \"propertyCoverages\": [\n        { \"name\": \"Coverage A\", \"description\": \"Building\", \"type\": \"fixed\", \"limit\": 850000, \"deductible\": 0 },\n        { \"name\": \"Coverage C\", \"description\": \"Business Personal Property\", \"type\": \"fixed\", \"limit\": 100000, \"deductible\": 0 }\n      ]\n    }\n  ]\n}",
+          "response": "{\n  \"bopAppetiteCheckResult\": [\n    {\n      \"checkId\": \"fbed2705-598e-4378-8409-86918e081f8a\",\n      \"underwritingIndication\": \"Approve\",\n      \"quoteUrl\": \"https://appetitecheck-uat.fortuitytech.com/v1/BOPAppetiteChecker/GetAppetiteCheck/fbed2705-598e-4378-8409-86918e081f8a\",\n      \"quoteUnderwriting\": [\n        { \"decision\": \"Approve\", \"source\": \"TIV\", \"reason\": \"TIV: $850,000.00\" },\n        { \"decision\": \"Approve\", \"source\": \"Roof Cover Step\", \"reason\": \"Built-up roof without gravel is eligible\" },\n        { \"decision\": \"Approve\", \"source\": \"State Eligibility\", \"reason\": \"State Eligibility: FL\" },\n        { \"decision\": \"Approve\", \"source\": \"Occupancy Type\", \"reason\": \"Occupancy Type: Restaurant\" }\n      ]\n    }\n  ]\n}",
+          "expanded": false
+        },
+        {
+          "id": "create-rated-quote",
+          "title": "Create Rated Quote (BOP)",
+          "description": "Generate a rated BOP quote from an approved appetite check ID.",
+          "method": "POST",
+          "path": "/v1/BOPAppetiteChecker/CreateRatedQuote",
+          "request": "POST /v1/BOPAppetiteChecker/CreateRatedQuote\n{\n  \"appetiteCheckId\": \"fbed2705-598e-4378-8409-86918e081f8a\",\n  \"producerId\": \"28543\",\n  \"verificationQuestion\": \"Yes\",\n  \"coverageType\": \"WNDAOP\"\n}",
+          "response": "{\n  \"CheckId\": \"fbed2705-598e-4378-8409-86918e081f8a\",\n  \"QuoteId\": \"QT-00007652\",\n  \"QuoteLocation\": \"https://vru-uat.guidewire.net/coreapi/v5/applications/12002\",\n  \"QuoteType\": \"WNDAOP\",\n  \"QuoteOptions\": [\n    {\n      \"CoverageName\": \"PolicyWIND\",\n      \"CoverageDescription\": \"Wind/Hail Coverage\",\n      \"CoveragePremium\": \"2900.00\",\n      \"DeductibleOptions\": [\n        { \"DeductibleName\": \"Deductible1\", \"DeductibleAmount\": \"3\", \"DeductibleType\": \"percentage\", \"DeductibleDisplay\": \"3%\" }\n      ]\n    },\n    {\n      \"CoverageName\": \"PolicyAOP\",\n      \"CoverageDescription\": \"All Other Perils\",\n      \"CoveragePremium\": \"480.00\",\n      \"DeductibleOptions\": [\n        { \"DeductibleName\": \"Deductible1\", \"DeductibleAmount\": \"10000\", \"DeductibleType\": \"currency\", \"DeductibleDisplay\": \"$10,000.00\" }\n      ]\n    },\n    {\n      \"CoverageName\": \"Cyber\",\n      \"CoverageDescription\": \"Cyber Liability\",\n      \"CoveragePremium\": \"224.00\",\n      \"DeductibleOptions\": [\n        { \"DeductibleName\": \"Deductible1\", \"DeductibleAmount\": \"1000\", \"DeductibleType\": \"currency\", \"DeductibleDisplay\": \"$1,000.00\" }\n      ]\n    }\n  ]\n}",
+          "expanded": false
+        }
+      ],
+      "roofShapeValues": [
+        {
+          "value": "Flat",
+          "description": "Horizontal or very low-slope roof"
+        },
+        {
+          "value": "Gable end without bracing",
+          "description": "Two-sided pitched roof meeting at a central ridge"
+        },
+        {
+          "value": "Gable end with bracing",
+          "description": "Two-sided pitched roof meeting at a central ridge with additional structural support"
+        },
+        {
+          "value": "Hip",
+          "description": "All four sides slope downward to the walls"
+        },
+        {
+          "value": "Mansard",
+          "description": "Double-pitched roof with a steep lower slope"
+        },
+        {
+          "value": "Gambrel",
+          "description": "Barn-style double-pitched roof"
+        },
+        {
+          "value": "Stepped",
+          "description": "Multiple flat sections at different heights"
+        },
+        {
+          "value": "Shed",
+          "description": "Single sloping plane, one ridge"
+        },
+        {
+          "value": "Pyramid",
+          "description": "Pyramid-shaped roof structure"
+        },
+        {
+          "value": "Complex",
+          "description": "Complex roof structure with multiple intersecting planes"
+        }
+      ],
+      "roofCoverValues": [
+        {
+          "value": "Asphalt Shingles",
+          "description": "Standard asphalt composition shingles"
+        },
+        {
+          "value": "Built-up roof without gravel",
+          "description": "Multiple plies of bitumen without gravel surfacing"
+        },
+        {
+          "value": "Built-up roof with gravel",
+          "description": "Multiple plies of bitumen with aggregate surfacing"
+        },
+        {
+          "value": "Light Metal Panels",
+          "description": "Standing seam or corrugated metal panels"
+        },
+        {
+          "value": "Standing Seam Metal Roofs",
+          "description": "Metal roofs with interlocking seams"
+        },
+        {
+          "value": "Hurricane Wind-Rated Roof Coverings",
+          "description": "Roof coverings that meet specific wind resistance standards"
+        },
+        {
+          "value": "Single Ply Membrane",
+          "description": "Thermoplastic polyolefin membrane"
+        },
+        {
+          "value": "Single Ply Membrane Ballasted",
+          "description": "Polyvinyl chloride membrane"
+        },
+        {
+          "value": "Clay/Concrete Tiles",
+          "description": "Clay or concrete tile"
+        },
+        {
+          "value": "Wooden Shingles",
+          "description": "Split or sawn wood roofing material"
+        },
+        {
+          "value": "Slate",
+          "description": "Natural or synthetic slate tiles"
+        }
+      ],
+      "exteriorMaterialValues": [
+        {
+          "value": "Frame",
+          "description": "Combustible wood frame construction (ISO Class 1)"
+        },
+        {
+          "value": "Joisted Masonry",
+          "description": "Masonry exterior walls with wood/combustible floor and roof (ISO Class 2)"
+        },
+        {
+          "value": "Light Metal Frame",
+          "description": "Metal frame with non-combustible exterior but combustible floor/roof (ISO Class 3A)"
+        },
+        {
+          "value": "Non-combustible",
+          "description": "Non-combustible or slow-burning materials — steel frame (ISO Class 3)"
+        },
+        {
+          "value": "Masonry Non-Combustible",
+          "description": "Masonry walls with non-combustible floor and roof (ISO Class 4)"
+        },
+        {
+          "value": "Modified Fire Resistive",
+          "description": "Fire-resistive construction with some combustible elements (ISO Class 5)"
+        },
+        {
+          "value": "Fire Resistive",
+          "description": "Reinforced concrete or protected steel — fully fire-resistive (ISO Class 6)"
+        }
+      ]
+    },
+    "cpp": {
+      "sampleRows": [
+        {
+          "id": "occupancy-search",
+          "title": "Search Occupancy",
+          "description": "Find class IDs, GL and NAICS codes for a business description.",
+          "method": "POST",
+          "path": "/v1/Occupancy/SearchOccupancyData",
+          "request": "POST /v1/Occupancy/SearchOccupancyData\n{\n  \"searchText\": \"hardware store\",\n  \"numResults\": 3,\n  \"lineOfBusiness\": \"CPP\"\n}",
+          "response": "{\n  \"results\": [\n    {\n      \"score\": 410.25,\n      \"classId\": \"15c678ed6073f6386204ad7c28b228e35d885c07ab22b6b05246aa4a777d5a13\",\n      \"occupancy_class\": \"Mercantile\",\n      \"occupancy_category\": \"Hardware Stores\",\n      \"licenseClass\": [\"CPP\"],\n      \"eligible\": \"Yes\",\n      \"classification\": {\n        \"id\": \"Hardware Stores\",\n        \"description\": \"Hardware Stores\",\n        \"glClassCode\": \"10111\",\n        \"naicsCode\": \"444130\",\n        \"eligible\": \"Yes\",\n        \"cppOccupancy\": \"Mercantile\",\n        \"cppClass\": \"Hardware Stores\"\n      }\n    }\n  ]\n}",
+          "expanded": false
+        },
+        {
+          "id": "check-appetite",
+          "title": "Check Appetite (CPP)",
+          "description": "Submit a building and occupancy to determine CPP underwriting appetite.",
+          "method": "POST",
+          "path": "/v2/AppetiteChecker/CheckAppetite",
+          "request": "POST /v2/AppetiteChecker/CheckAppetite\n{\n  \"businessName\": \"Ace Hardware - Main St\",\n  \"state\": \"TX\",\n  \"effectiveDate\": \"2026-06-01\",\n  \"buildings\": [\n    {\n      \"locationNumber\": 1,\n      \"buildingNumber\": 1,\n      \"buildingDescription\": \"Main Store\",\n      \"yearBuilt\": 1998,\n      \"tiv\": 1500000,\n      \"constructionType\": \"Masonry Non-Combustible\",\n      \"roofReplacementYear\": 2015,\n      \"roofCover\": \"Metal\",\n      \"roofShape\": \"Flat\",\n      \"squareFootage\": 8500,\n      \"stories\": 1,\n      \"occupancyType\": \"Mercantile\",\n      \"classId\": \"15c678ed6073f6386204ad7c28b228e35d885c07ab22b6b05246aa4a777d5a13\",\n      \"buildingAddress\": {\n        \"street1\": \"1200 Main St\",\n        \"city\": \"Austin\",\n        \"state\": \"TX\",\n        \"postal\": \"78701\",\n        \"county\": \"Travis County\"\n      },\n      \"propertyCoverages\": [\n        { \"name\": \"Coverage A\", \"description\": \"Building\", \"type\": \"fixed\", \"limit\": 1500000, \"deductible\": 0 },\n        { \"name\": \"Coverage C\", \"description\": \"Business Personal Property\", \"type\": \"fixed\", \"limit\": 250000, \"deductible\": 0 }\n      ]\n    }\n  ]\n}",
+          "response": "{\n  \"cppAppetiteCheckResult\": [\n    {\n      \"checkId\": \"4923910d-3861-4ecc-b78a-fe724bd16bd1\",\n      \"underwritingIndication\": \"Approve\",\n      \"quoteUrl\": \"https://appetitecheck-uat.fortuitytech.com/v2/AppetiteChecker/GetAppetiteCheck/4923910d-3861-4ecc-b78a-fe724bd16bd1\",\n      \"quoteUnderwriting\": [\n        { \"decision\": \"Approve\", \"source\": \"TIV\", \"reason\": \"TIV: $1,500,000.00\" },\n        { \"decision\": \"Approve\", \"source\": \"Roof Cover Step\", \"reason\": \"Metal roof cover is eligible\" },\n        { \"decision\": \"Approve\", \"source\": \"State Eligibility\", \"reason\": \"State Eligibility: TX\" }\n      ],\n      \"buildings\": [\n        {\n          \"underwritingIndication\": \"Approve\",\n          \"building\": { \"buildingId\": \"b1d2c3e4-...\", \"buildingDescription\": \"Main Store\" },\n          \"underwritingReasons\": [\n            { \"decision\": \"Approve\", \"source\": \"Request Validation Step\", \"reason\": \"Request is valid\" }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+          "expanded": false
+        },
+        {
+          "id": "create-rated-quote",
+          "title": "Create Rated Quote (CPP)",
+          "description": "Generate a rated CPP quote from an approved appetite check ID.",
+          "method": "POST",
+          "path": "/v2/AppetiteChecker/CreateRatedQuote",
+          "request": "POST /v2/AppetiteChecker/CreateRatedQuote\n{\n  \"appetiteCheckId\": \"4923910d-3861-4ecc-b78a-fe724bd16bd1\",\n  \"producerId\": \"19712\",\n  \"verificationQuestion\": \"Yes\",\n  \"coverageType\": \"WNDAOP\"\n}",
+          "response": "{\n  \"CheckId\": \"4923910d-3861-4ecc-b78a-fe724bd16bd1\",\n  \"QuoteId\": \"QT-00009811\",\n  \"QuoteLocation\": \"https://vru-uat.guidewire.net/coreapi/v5/applications/13005\",\n  \"QuoteType\": \"WNDAOP\",\n  \"QuoteOptions\": [\n    {\n      \"CoverageName\": \"PolicyWIND\",\n      \"CoverageDescription\": \"Wind/Hail Coverage\",\n      \"CoveragePremium\": \"1840.00\",\n      \"DeductibleOptions\": [\n        { \"DeductibleName\": \"Deductible1\", \"DeductibleAmount\": \"3\", \"DeductibleType\": \"percentage\", \"DeductibleDisplay\": \"3%\" }\n      ]\n    },\n    {\n      \"CoverageName\": \"PolicyAOP\",\n      \"CoverageDescription\": \"All Other Perils\",\n      \"CoveragePremium\": \"390.00\",\n      \"DeductibleOptions\": [\n        { \"DeductibleName\": \"Deductible1\", \"DeductibleAmount\": \"5000\", \"DeductibleType\": \"currency\", \"DeductibleDisplay\": \"$5,000.00\" }\n      ]\n    }\n  ]\n}",
+          "expanded": false
+        }
+      ],
+      "roofShapeValues": [
+        {
+          "value": "Flat",
+          "description": "Horizontal or very low-slope roof"
+        },
+        {
+          "value": "Gable end without bracing",
+          "description": "Two-sided pitched roof meeting at a central ridge"
+        },
+        {
+          "value": "Gable end with bracing",
+          "description": "Two-sided pitched roof meeting at a central ridge with additional structural support"
+        },
+        {
+          "value": "Hip",
+          "description": "All four sides slope downward to the walls"
+        },
+        {
+          "value": "Mansard",
+          "description": "Double-pitched roof with a steep lower slope"
+        },
+        {
+          "value": "Gambrel",
+          "description": "Barn-style double-pitched roof"
+        },
+        {
+          "value": "Stepped",
+          "description": "Multiple flat sections at different heights"
+        },
+        {
+          "value": "Shed",
+          "description": "Single sloping plane, one ridge"
+        },
+        {
+          "value": "Pyramid",
+          "description": "Pyramid-shaped roof structure"
+        },
+        {
+          "value": "Complex",
+          "description": "Complex roof structure with multiple intersecting planes"
+        }
+      ],
+      "roofCoverValues": [
+        {
+          "value": "Asphalt Shingles",
+          "description": "Standard asphalt composition shingles"
+        },
+        {
+          "value": "Built-up roof without gravel",
+          "description": "Multiple plies of bitumen without gravel surfacing"
+        },
+        {
+          "value": "Built-up roof with gravel",
+          "description": "Multiple plies of bitumen with aggregate surfacing"
+        },
+        {
+          "value": "Light Metal Panels",
+          "description": "Standing seam or corrugated metal panels"
+        },
+        {
+          "value": "Standing Seam Metal Roofs",
+          "description": "Metal roofs with interlocking seams"
+        },
+        {
+          "value": "Hurricane Wind-Rated Roof Coverings",
+          "description": "Roof coverings that meet specific wind resistance standards"
+        },
+        {
+          "value": "Single Ply Membrane",
+          "description": "Thermoplastic polyolefin membrane"
+        },
+        {
+          "value": "Single Ply Membrane Ballasted",
+          "description": "Polyvinyl chloride membrane"
+        },
+        {
+          "value": "Clay/Concrete Tiles",
+          "description": "Clay or concrete tile"
+        },
+        {
+          "value": "Wooden Shingles",
+          "description": "Split or sawn wood roofing material"
+        },
+        {
+          "value": "Slate",
+          "description": "Natural or synthetic slate tiles"
+        }
+      ],
+      "exteriorMaterialValues": [
+        {
+          "value": "Frame",
+          "description": "Combustible wood frame construction (ISO Class 1)"
+        },
+        {
+          "value": "Joisted Masonry",
+          "description": "Masonry exterior walls with wood/combustible floor and roof (ISO Class 2)"
+        },
+        {
+          "value": "Light Metal Frame",
+          "description": "Metal frame with non-combustible exterior but combustible floor/roof (ISO Class 3A)"
+        },
+        {
+          "value": "Non-combustible",
+          "description": "Non-combustible or slow-burning materials — steel frame (ISO Class 3)"
+        },
+        {
+          "value": "Masonry Non-Combustible",
+          "description": "Masonry walls with non-combustible floor and roof (ISO Class 4)"
+        },
+        {
+          "value": "Modified Fire Resistive",
+          "description": "Fire-resistive construction with some combustible elements (ISO Class 5)"
+        },
+        {
+          "value": "Fire Resistive",
+          "description": "Reinforced concrete or protected steel — fully fire-resistive (ISO Class 6)"
+        }
+      ]
+    },
+    "risk": {
+      "sampleRows": [
+        {
+          "id": "occupancy-search",
+          "title": "Search Occupancy",
+          "description": "Find class IDs, GL and NAICS codes for a business description.",
+          "method": "POST",
+          "path": "/v1/Occupancy/SearchOccupancyData",
+          "request": "POST /v1/Occupancy/SearchOccupancyData\n{\n  \"searchText\": \"auto repair shop\",\n  \"numResults\": 3,\n  \"lineOfBusiness\": \"ALL\"\n}",
+          "response": "{\n  \"results\": [\n    {\n      \"score\": 418.44,\n      \"classId\": \"a3f91cc2e08b45d27f6bc93841de0f2a7c5b12e3d94801fabc7652091e34d87f\",\n      \"occupancy_class\": \"Mercantile\",\n      \"occupancy_category\": \"Auto Repair Shops\",\n      \"licenseClass\": [\"CPP\"],\n      \"eligible\": \"Yes\",\n      \"classification\": {\n        \"id\": \"Auto Repair Shops\",\n        \"description\": \"Auto Repair Shops\",\n        \"glClassCode\": \"10101\",\n        \"naicsCode\": \"811111\",\n        \"eligible\": \"Yes\",\n        \"cppOccupancy\": \"Mercantile\",\n        \"cppClass\": \"Auto Repair Shops\"\n      }\n    }\n  ]\n}",
+          "expanded": false
+        },
+        {
+          "id": "check-appetite",
+          "title": "Check Appetite (Risk)",
+          "description": "Submit locations with buildings and occupancies to check risk appetite.",
+          "method": "POST",
+          "path": "/v1/RiskAppetiteChecker/CheckAppetite",
+          "request": "POST /v1/RiskAppetiteChecker/CheckAppetite\n{\n  \"BusinessName\": \"Central Auto Repair\",\n  \"State\": \"TX\",\n  \"EffectiveDate\": \"2026-06-01\",\n  \"Locations\": [\n    {\n      \"LocationName\": \"Location 1\",\n      \"Operations\": [\n        {\n          \"LocationNumber\": 1,\n          \"BuildingNumber\": 1,\n          \"BuildingDescription\": \"Service Bay\",\n          \"YearBuilt\": 2000,\n          \"TIV\": 1200000,\n          \"ConstructionType\": \"Masonry Non-Combustible\",\n          \"RoofReplacementYear\": 2012,\n          \"RoofCover\": \"Metal\",\n          \"RoofShape\": \"Gabled\",\n          \"SquareFootage\": 5000,\n          \"Stories\": 1,\n          \"OccupancyType\": \"Mercantile\",\n          \"BuildingAddress\": {\n            \"Street1\": \"800 Commerce Blvd\",\n            \"City\": \"Houston\",\n            \"State\": \"TX\",\n            \"Postal\": \"77002\",\n            \"County\": \"Harris County\"\n          },\n          \"BusinessClassifications\": [\n            {\n              \"ClassId\": \"a3f91cc2e08b45d27f6bc93841de0f2a7c5b12e3d94801fabc7652091e34d87f\",\n              \"NumberOfEmployees\": 8,\n              \"LiabilityBasisType\": \"Payroll\",\n              \"LiabilityBasisAmount\": 420000\n            }\n          ],\n          \"PropertyCoverages\": [\n            { \"Name\": \"Coverage A\", \"Description\": \"Building\", \"Type\": \"fixed\", \"Limit\": 1200000, \"Deductible\": 0 },\n            { \"Name\": \"Coverage C\", \"Description\": \"Business Personal Property\", \"Type\": \"fixed\", \"Limit\": 150000, \"Deductible\": 0 }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+          "response": "{\n  \"riskAppetiteCheckId\": \"c7d2a1b4-3f8e-4c91-b205-d9e14f062378\",\n  \"cppAppetiteCheckResult\": [\n    {\n      \"checkId\": \"c7d2a1b4-3f8e-4c91-b205-d9e14f062378\",\n      \"underwritingIndication\": \"Approve\",\n      \"quoteUrl\": \"https://appetitecheck-uat.fortuitytech.com/v1/RiskAppetiteChecker/GetAppetiteCheck/c7d2a1b4-3f8e-4c91-b205-d9e14f062378\",\n      \"quoteUnderwriting\": [\n        { \"decision\": \"Approve\", \"source\": \"TIV\", \"reason\": \"TIV: $1,200,000.00\" },\n        { \"decision\": \"Approve\", \"source\": \"Roof Cover Step\", \"reason\": \"Metal roof cover is eligible\" },\n        { \"decision\": \"Approve\", \"source\": \"Roof Shape Step\", \"reason\": \"Gabled roof shape is eligible\" },\n        { \"decision\": \"Approve\", \"source\": \"State Eligibility\", \"reason\": \"State Eligibility: TX\" }\n      ],\n      \"buildings\": [\n        {\n          \"underwritingIndication\": \"Approve\",\n          \"building\": { \"buildingId\": \"d1e2f3a4-...\", \"buildingDescription\": \"Service Bay\" },\n          \"underwritingReasons\": [\n            { \"decision\": \"Approve\", \"source\": \"Request Validation Step\", \"reason\": \"Request is valid\" },\n            { \"decision\": \"Approve\", \"source\": \"Occupancy Type\", \"reason\": \"Occupancy Type: Mercantile\" }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+          "expanded": false
+        },
+        {
+          "id": "create-rated-quote",
+          "title": "Create Rated Quote (Risk)",
+          "description": "Generate a rated quote from an approved risk appetite check ID.",
+          "method": "POST",
+          "path": "/v1/RiskAppetiteChecker/CreateRatedQuote",
+          "request": "POST /v1/RiskAppetiteChecker/CreateRatedQuote\n{\n  \"appetiteCheckId\": \"c7d2a1b4-3f8e-4c91-b205-d9e14f062378\",\n  \"producerId\": \"19712\",\n  \"verificationQuestion\": \"Yes\",\n  \"coverageType\": \"WNDAOP\"\n}",
+          "response": "{\n  \"CheckId\": \"c7d2a1b4-3f8e-4c91-b205-d9e14f062378\",\n  \"QuoteId\": \"QT-00008744\",\n  \"QuoteLocation\": \"https://vru-uat.guidewire.net/coreapi/v5/applications/12558\",\n  \"QuoteType\": \"WNDAOP\",\n  \"QuoteOptions\": [\n    {\n      \"CoverageName\": \"PolicyWIND\",\n      \"CoverageDescription\": \"Wind/Hail Coverage\",\n      \"CoveragePremium\": \"2240.00\",\n      \"DeductibleOptions\": [\n        { \"DeductibleName\": \"Deductible1\", \"DeductibleAmount\": \"3\", \"DeductibleType\": \"percentage\", \"DeductibleDisplay\": \"3%\" }\n      ]\n    },\n    {\n      \"CoverageName\": \"PolicyAOP\",\n      \"CoverageDescription\": \"All Other Perils\",\n      \"CoveragePremium\": \"520.00\",\n      \"DeductibleOptions\": [\n        { \"DeductibleName\": \"Deductible1\", \"DeductibleAmount\": \"5000\", \"DeductibleType\": \"currency\", \"DeductibleDisplay\": \"$5,000.00\" }\n      ]\n    },\n    {\n      \"CoverageName\": \"PolicyEB\",\n      \"CoverageDescription\": \"Equipment Breakdown\",\n      \"CoveragePremium\": \"25.00\",\n      \"DeductibleOptions\": [\n        { \"DeductibleName\": \"Deductible1\", \"DeductibleAmount\": \"5000\", \"DeductibleType\": \"currency\", \"DeductibleDisplay\": \"$5,000.00\" }\n      ]\n    }\n  ]\n}",
+          "expanded": false
+        }
+      ],
+      "roofShapeValues": [
+        {
+          "value": "Flat",
+          "description": "Horizontal or very low-slope roof"
+        },
+        {
+          "value": "Gable end without bracing",
+          "description": "Two-sided pitched roof meeting at a central ridge"
+        },
+        {
+          "value": "Gable end with bracing",
+          "description": "Two-sided pitched roof meeting at a central ridge with additional structural support"
+        },
+        {
+          "value": "Hip",
+          "description": "All four sides slope downward to the walls"
+        },
+        {
+          "value": "Mansard",
+          "description": "Double-pitched roof with a steep lower slope"
+        },
+        {
+          "value": "Gambrel",
+          "description": "Barn-style double-pitched roof"
+        },
+        {
+          "value": "Stepped",
+          "description": "Multiple flat sections at different heights"
+        },
+        {
+          "value": "Shed",
+          "description": "Single sloping plane, one ridge"
+        },
+        {
+          "value": "Pyramid",
+          "description": "Pyramid-shaped roof structure"
+        },
+        {
+          "value": "Complex",
+          "description": "Complex roof structure with multiple intersecting planes"
+        }
+      ],
+      "roofCoverValues": [
+        {
+          "value": "Asphalt Shingles",
+          "description": "Standard asphalt composition shingles"
+        },
+        {
+          "value": "Built-up roof without gravel",
+          "description": "Multiple plies of bitumen without gravel surfacing"
+        },
+        {
+          "value": "Built-up roof with gravel",
+          "description": "Multiple plies of bitumen with aggregate surfacing"
+        },
+        {
+          "value": "Light Metal Panels",
+          "description": "Standing seam or corrugated metal panels"
+        },
+        {
+          "value": "Standing Seam Metal Roofs",
+          "description": "Metal roofs with interlocking seams"
+        },
+        {
+          "value": "Hurricane Wind-Rated Roof Coverings",
+          "description": "Roof coverings that meet specific wind resistance standards"
+        },
+        {
+          "value": "Single Ply Membrane",
+          "description": "Thermoplastic polyolefin membrane"
+        },
+        {
+          "value": "Single Ply Membrane Ballasted",
+          "description": "Polyvinyl chloride membrane"
+        },
+        {
+          "value": "Clay/Concrete Tiles",
+          "description": "Clay or concrete tile"
+        },
+        {
+          "value": "Wooden Shingles",
+          "description": "Split or sawn wood roofing material"
+        },
+        {
+          "value": "Slate",
+          "description": "Natural or synthetic slate tiles"
+        }
+      ],
+      "exteriorMaterialValues": [
+        {
+          "value": "Frame",
+          "description": "Combustible wood frame construction (ISO Class 1)"
+        },
+        {
+          "value": "Joisted Masonry",
+          "description": "Masonry exterior walls with wood/combustible floor and roof (ISO Class 2)"
+        },
+        {
+          "value": "Light Metal Frame",
+          "description": "Metal frame with non-combustible exterior but combustible floor/roof (ISO Class 3A)"
+        },
+        {
+          "value": "Non-combustible",
+          "description": "Non-combustible or slow-burning materials — steel frame (ISO Class 3)"
+        },
+        {
+          "value": "Masonry Non-Combustible",
+          "description": "Masonry walls with non-combustible floor and roof (ISO Class 4)"
+        },
+        {
+          "value": "Modified Fire Resistive",
+          "description": "Fire-resistive construction with some combustible elements (ISO Class 5)"
+        },
+        {
+          "value": "Fire Resistive",
+          "description": "Reinforced concrete or protected steel — fully fire-resistive (ISO Class 6)"
+        }
+      ]
+    }
+  }
+}

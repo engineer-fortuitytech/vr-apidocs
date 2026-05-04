@@ -13,26 +13,17 @@ import {
   EndpointParam,
   METHOD_ORDER
 } from '../../types/types';
+import {
+  type FieldValue,
+  type SampleRow,
+  CONTENT,
+} from '../../data/content.data';
+
+export type { FieldValue, SampleRow };
 
 const OPENAPI_URL = 'https://appetitecheck-uat.fortuitytech.com';
 
 const RISK_ALLOWED_TAGS = ['RiskAppetiteChecker', 'Occupancy', 'Product'];
-
-export interface FieldValue {
-  value: string;
-  description: string;
-}
-
-export interface SampleRow {
-  id: string;
-  title: string;
-  description: string;
-  method: string;
-  path: string;
-  request: string;
-  response: string;
-  expanded: boolean;
-}
 
 @Component({
   selector: 'app-risk',
@@ -56,207 +47,11 @@ export class Risk implements OnInit {
   statusLastChecked: string | null = null;
   statusSourceLabel = 'health endpoint';
 
-  sampleRows: SampleRow[] = [
-    {
-      id: 'occupancy-search',
-      title: 'Search Occupancy',
-      description: 'Find class IDs, GL and NAICS codes for a business description.',
-      method: 'POST',
-      path: '/v1/Occupancy/SearchOccupancyData',
-      request: `POST /v1/Occupancy/SearchOccupancyData
-{
-  "searchText": "auto repair shop",
-  "numResults": 3,
-  "lineOfBusiness": "ALL"
-}`,
-      response: `{
-  "results": [
-    {
-      "score": 418.44,
-      "classId": "a3f91cc2e08b45d27f6bc93841de0f2a7c5b12e3d94801fabc7652091e34d87f",
-      "occupancy_class": "Mercantile",
-      "occupancy_category": "Auto Repair Shops",
-      "licenseClass": ["CPP"],
-      "eligible": "Yes",
-      "classification": {
-        "id": "Auto Repair Shops",
-        "description": "Auto Repair Shops",
-        "glClassCode": "10101",
-        "naicsCode": "811111",
-        "eligible": "Yes",
-        "cppOccupancy": "Mercantile",
-        "cppClass": "Auto Repair Shops"
-      }
-    }
-  ]
-}`,
-      expanded: false
-    },
-    {
-      id: 'check-appetite',
-      title: 'Check Appetite (Risk)',
-      description: 'Submit locations with buildings and occupancies to check risk appetite.',
-      method: 'POST',
-      path: '/v1/RiskAppetiteChecker/CheckAppetite',
-      request: `POST /v1/RiskAppetiteChecker/CheckAppetite
-{
-  "BusinessName": "Central Auto Repair",
-  "State": "TX",
-  "EffectiveDate": "2026-06-01",
-  "Locations": [
-    {
-      "LocationName": "Location 1",
-      "Operations": [
-        {
-          "LocationNumber": 1,
-          "BuildingNumber": 1,
-          "BuildingDescription": "Service Bay",
-          "YearBuilt": 2000,
-          "TIV": 1200000,
-          "ConstructionType": "Masonry Non-Combustible",
-          "RoofReplacementYear": 2012,
-          "RoofCover": "Metal",
-          "RoofShape": "Gabled",
-          "SquareFootage": 5000,
-          "Stories": 1,
-          "OccupancyType": "Mercantile",
-          "BuildingAddress": {
-            "Street1": "800 Commerce Blvd",
-            "City": "Houston",
-            "State": "TX",
-            "Postal": "77002",
-            "County": "Harris County"
-          },
-          "BusinessClassifications": [
-            {
-              "ClassId": "a3f91cc2e08b45d27f6bc93841de0f2a7c5b12e3d94801fabc7652091e34d87f",
-              "NumberOfEmployees": 8,
-              "LiabilityBasisType": "Payroll",
-              "LiabilityBasisAmount": 420000
-            }
-          ],
-          "PropertyCoverages": [
-            { "Name": "Coverage A", "Description": "Building", "Type": "fixed", "Limit": 1200000, "Deductible": 0 },
-            { "Name": "Coverage C", "Description": "Business Personal Property", "Type": "fixed", "Limit": 150000, "Deductible": 0 }
-          ]
-        }
-      ]
-    }
-  ]
-}`,
-      response: `{
-  "riskAppetiteCheckId": "c7d2a1b4-3f8e-4c91-b205-d9e14f062378",
-  "cppAppetiteCheckResult": [
-    {
-      "checkId": "c7d2a1b4-3f8e-4c91-b205-d9e14f062378",
-      "underwritingIndication": "Approve",
-      "quoteUrl": "https://appetitecheck-uat.fortuitytech.com/v1/RiskAppetiteChecker/GetAppetiteCheck/c7d2a1b4-3f8e-4c91-b205-d9e14f062378",
-      "quoteUnderwriting": [
-        { "decision": "Approve", "source": "TIV", "reason": "TIV: $1,200,000.00" },
-        { "decision": "Approve", "source": "Roof Cover Step", "reason": "Metal roof cover is eligible" },
-        { "decision": "Approve", "source": "Roof Shape Step", "reason": "Gabled roof shape is eligible" },
-        { "decision": "Approve", "source": "State Eligibility", "reason": "State Eligibility: TX" }
-      ],
-      "buildings": [
-        {
-          "underwritingIndication": "Approve",
-          "building": { "buildingId": "d1e2f3a4-...", "buildingDescription": "Service Bay" },
-          "underwritingReasons": [
-            { "decision": "Approve", "source": "Request Validation Step", "reason": "Request is valid" },
-            { "decision": "Approve", "source": "Occupancy Type", "reason": "Occupancy Type: Mercantile" }
-          ]
-        }
-      ]
-    }
-  ]
-}`,
-      expanded: false
-    },
-    {
-      id: 'create-rated-quote',
-      title: 'Create Rated Quote (Risk)',
-      description: 'Generate a rated quote from an approved risk appetite check ID.',
-      method: 'POST',
-      path: '/v1/RiskAppetiteChecker/CreateRatedQuote',
-      request: `POST /v1/RiskAppetiteChecker/CreateRatedQuote
-{
-  "appetiteCheckId": "c7d2a1b4-3f8e-4c91-b205-d9e14f062378",
-  "producerId": "19712",
-  "verificationQuestion": "Yes",
-  "coverageType": "WNDAOP"
-}`,
-      response: `{
-  "CheckId": "c7d2a1b4-3f8e-4c91-b205-d9e14f062378",
-  "QuoteId": "QT-00008744",
-  "QuoteLocation": "https://vru-uat.guidewire.net/coreapi/v5/applications/12558",
-  "QuoteType": "WNDAOP",
-  "QuoteOptions": [
-    {
-      "CoverageName": "PolicyWIND",
-      "CoverageDescription": "Wind/Hail Coverage",
-      "CoveragePremium": "2240.00",
-      "DeductibleOptions": [
-        { "DeductibleName": "Deductible1", "DeductibleAmount": "3", "DeductibleType": "percentage", "DeductibleDisplay": "3%" }
-      ]
-    },
-    {
-      "CoverageName": "PolicyAOP",
-      "CoverageDescription": "All Other Perils",
-      "CoveragePremium": "520.00",
-      "DeductibleOptions": [
-        { "DeductibleName": "Deductible1", "DeductibleAmount": "5000", "DeductibleType": "currency", "DeductibleDisplay": "$5,000.00" }
-      ]
-    },
-    {
-      "CoverageName": "PolicyEB",
-      "CoverageDescription": "Equipment Breakdown",
-      "CoveragePremium": "25.00",
-      "DeductibleOptions": [
-        { "DeductibleName": "Deductible1", "DeductibleAmount": "5000", "DeductibleType": "currency", "DeductibleDisplay": "$5,000.00" }
-      ]
-    }
-  ]
-}`,
-      expanded: false
-    }
-  ];
+  sampleRows: SampleRow[] = CONTENT.risk.sampleRows.map(r => ({ ...r }));
 
-  roofShapeValues: FieldValue[] = [
-    { value: 'Flat', description: 'Horizontal or very low-slope roof' },
-    { value: 'Gable end without bracing', description: 'Two-sided pitched roof meeting at a central ridge' },
-    { value: 'Gable end with bracing', description: 'Two-sided pitched roof meeting at a central ridge with additional structural support' },
-    { value: 'Hip', description: 'All four sides slope downward to the walls' },
-    { value: 'Mansard', description: 'Double-pitched roof with a steep lower slope' },
-    { value: 'Gambrel', description: 'Barn-style double-pitched roof' },
-    { value: 'Stepped', description: 'Multiple flat sections at different heights' },
-    { value: 'Shed', description: 'Single sloping plane, one ridge' },
-    { value: 'Pyramid', description: 'Pyramid-shaped roof structure' },
-    { value: 'Complex', description: 'Complex roof structure with multiple intersecting planes' },
-  ];
-
-  roofCoverValues: FieldValue[] = [
-    { value: 'Asphalt Shingles', description: 'Standard asphalt composition shingles' },
-    { value: 'Built-up roof without gravel', description: 'Multiple plies of bitumen without gravel surfacing' },
-    { value: 'Built-up roof with gravel', description: 'Multiple plies of bitumen with aggregate surfacing' },
-    { value: 'Light Metal Panels', description: 'Standing seam or corrugated metal panels' },
-    { value: 'Standing Seam Metal Roofs', description: 'Metal roofs with interlocking seams' },
-    { value: 'Hurricane Wind-Rated Roof Coverings', description: 'Roof coverings that meet specific wind resistance standards' },
-    { value: 'Single Ply Membrane', description: 'Thermoplastic polyolefin membrane' },
-    { value: 'Single Ply Membrane Ballasted', description: 'Polyvinyl chloride membrane' },
-    { value: 'Clay/Concrete Tiles', description: 'Clay or concrete tile' },
-    { value: 'Wooden Shingles', description: 'Split or sawn wood roofing material' },
-    { value: 'Slate', description: 'Natural or synthetic slate tiles' },
-  ];
-
-  exteriorMaterialValues: FieldValue[] = [
-    { value: 'Frame', description: 'Combustible wood frame construction (ISO Class 1)' },
-    { value: 'Joisted Masonry', description: 'Masonry exterior walls with wood/combustible floor and roof (ISO Class 2)' },
-    { value: 'Light Metal Frame', description: 'Metal frame with non-combustible exterior but combustible floor/roof (ISO Class 3A)' },
-    { value: 'Non-combustible', description: 'Non-combustible or slow-burning materials — steel frame (ISO Class 3)' },
-    { value: 'Masonry Non-Combustible', description: 'Masonry walls with non-combustible floor and roof (ISO Class 4)' },
-    { value: 'Modified Fire Resistive', description: 'Fire-resistive construction with some combustible elements (ISO Class 5)' },
-    { value: 'Fire Resistive', description: 'Reinforced concrete or protected steel — fully fire-resistive (ISO Class 6)' },
-  ];
+  roofShapeValues: FieldValue[] = CONTENT.risk.roofShapeValues;
+  roofCoverValues: FieldValue[] = CONTENT.risk.roofCoverValues;
+  exteriorMaterialValues: FieldValue[] = CONTENT.risk.exteriorMaterialValues;
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
