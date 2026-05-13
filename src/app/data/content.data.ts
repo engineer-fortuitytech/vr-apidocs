@@ -21,7 +21,39 @@ export interface PageContent {
   exteriorMaterialValues: FieldValue[];
 }
 
+export interface MainFeature {
+  title: string;
+  description: string;
+}
+
+export interface MainSubstep {
+  label: string;
+  endpoint?: string;
+}
+
+export interface MainStep {
+  title: string;
+  description: string;
+  code?: string;
+  substeps?: MainSubstep[];
+}
+
+export interface MainHero {
+  badge: string;
+  title: string;
+  description: string;
+  tags: string[];
+}
+
+export interface MainContent {
+  hero: MainHero;
+  steps: MainStep[];
+  features: MainFeature[];
+  useCases: MainFeature[];
+}
+
 export interface AllContent {
+  main: MainContent;
   bop: PageContent;
   cpp: PageContent;
   risk: PageContent;
@@ -513,7 +545,65 @@ export const RISK_SAMPLE_ROWS: SampleRow[] = [
   }
 ];
 
+export const MAIN_CONTENT: MainContent = {
+  hero: {
+    badge: 'Breeze API',
+    title: 'Integrate Breeze Commercial Insurance Products into your apps.',
+    description: "The Breeze API lets you search for business classifications, request appetite checks for businesses you'd like to quote, and power builds multiple product quotes on demand. Use it from mobile, web, or backend services with a simple REST interface.",
+    tags: ['REST · JSON', 'Auth: API key (header)', 'Environment: Production'],
+  },
+  steps: [
+    {
+      title: 'Get an API key',
+      description: "Obtain your API key from the Velocity Risk Partner team and store it securely. You'll send it as a header on every request:",
+      code: 'x-api-key: <YOUR_API_KEY>',
+    },
+    {
+      title: 'Call endpoints from your app',
+      description: "Use the REST endpoints to find business classifications, request appetite checks for businesses you'd like to quote, and create multiple quote types. The API speaks standard JSON over HTTPS.",
+      substeps: [
+        { label: 'Search for Occupancy using the SearchOccupancyData endpoint.', endpoint: '/v1/Occupancy/SearchOccupancyData' },
+        { label: "Once you've identified the classId of the Occupancy(ies) you wish to write, add the location and Occupancy(ies) to the Check Appetite payload." },
+        { label: "If your request is Approved, submit the Appetite check using the returned Check Id and your producer code to create a quote for the approved Product (e.g. BOP /v1/BOPAppetiteChecker/CreateQuoteOptions, CPP /v2/AppetiteChecker/CreateRatedQuote/)." },
+      ],
+    },
+    {
+      title: 'Handle responses gracefully',
+      description: 'Responses return machine-friendly JSON plus HTTP status codes. You can plug results directly into UI components like "Approved quote" or "Occupancy Accepted".',
+    },
+  ],
+  features: [
+    {
+      title: 'Structured appetite checks',
+      description: 'Check Appetite for CPP and BOP products with a single API call, using structured signals like business type, size, and risk factors.',
+    },
+    {
+      title: 'Simplify Quoting',
+      description: 'Receive indicative quotes for BOP and CPP products and create and submit a quote to underwriting with a single API call.',
+    },
+    {
+      title: 'Operational monitoring',
+      description: 'A built-in health check lets you quickly verify API availability from your dashboards or uptime monitors.',
+    },
+  ],
+  useCases: [
+    {
+      title: 'Occupancy Availability',
+      description: 'Quickly check if a business is within appetite for CPP or BOP products based on natural language inputs.',
+    },
+    {
+      title: 'Appetite Verification',
+      description: 'Verify if a business and/or property location is within appetite for CPP and BOP products with a single API call.',
+    },
+    {
+      title: 'Chatbots / assistants',
+      description: 'Let conversational agents call the API to help users find relevant insurance products, check appetite, and get quotes in real time.',
+    },
+  ],
+};
+
 export const CONTENT: AllContent = {
+  main: MAIN_CONTENT,
   bop: {
     sampleRows: BOP_SAMPLE_ROWS,
     roofShapeValues: ROOF_SHAPE_VALUES,
