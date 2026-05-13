@@ -1,12 +1,16 @@
 {
-  "generated": "2026-05-13T00:00:00.000Z",
+  "generated": "2026-05-13T14:03:33.076Z",
   "pages": {
     "main": {
       "hero": {
         "badge": "Breeze API",
         "title": "Integrate Breeze Commercial Insurance Products into your apps.",
         "description": "The Breeze API lets you search for business classifications, request appetite checks for businesses you'd like to quote, and power builds multiple product quotes on demand. Use it from mobile, web, or backend services with a simple REST interface.",
-        "tags": ["REST · JSON", "Auth: API key (header)", "Environment: Production"]
+        "tags": [
+          "REST · JSON",
+          "Auth: API key (header)",
+          "Environment: Production"
+        ]
       },
       "steps": [
         {
@@ -18,9 +22,16 @@
           "title": "Call endpoints from your app",
           "description": "Use the REST endpoints to find business classifications, request appetite checks for businesses you'd like to quote, and create multiple quote types. The API speaks standard JSON over HTTPS.",
           "substeps": [
-            { "label": "Search for Occupancy using the SearchOccupancyData endpoint.", "endpoint": "/v1/Occupancy/SearchOccupancyData" },
-            { "label": "Once you've identified the classId of the Occupancy(ies) you wish to write, add the location and Occupancy(ies) to the Check Appetite payload." },
-            { "label": "If your request is Approved, submit the Appetite check using the returned Check Id and your producer code to create a quote for the approved Product (e.g. BOP /v1/BOPAppetiteChecker/CreateQuoteOptions, CPP /v2/AppetiteChecker/CreateRatedQuote/)." }
+            {
+              "label": "Search for Occupancy using the SearchOccupancyData endpoint.",
+              "endpoint": "/v1/Occupancy/SearchOccupancyData"
+            },
+            {
+              "label": "Once you've identified the classId of the Occupancy(ies) you wish to write, add the location and Occupancy(ies) to the Check Appetite payload."
+            },
+            {
+              "label": "If your request is Approved, submit the Appetite check using the returned Check Id and your producer code to create a quote for the approved Product (e.g. BOP /v1/BOPAppetiteChecker/CreateQuoteOptions, CPP /v2/AppetiteChecker/CreateRatedQuote/)."
+            }
           ]
         },
         {

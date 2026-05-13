@@ -624,7 +624,7 @@ export const CONTENT: AllContent = {
   },
 };
 
-export function getPageContent(page?: string): PageContent | AllContent {
+export function getPageContent(page?: string): PageContent | MainContent | AllContent {
   if (page && page in CONTENT) {
     return CONTENT[page as keyof AllContent];
   }
