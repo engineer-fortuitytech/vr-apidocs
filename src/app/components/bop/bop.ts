@@ -60,6 +60,7 @@ export class Bop implements OnInit {
   roofShapeValues: FieldValue[] = CONTENT.bop.roofShapeValues;
   roofCoverValues: FieldValue[] = CONTENT.bop.roofCoverValues;
   exteriorMaterialValues: FieldValue[] = CONTENT.bop.exteriorMaterialValues;
+  deductibleOptions: FieldValue[] = CONTENT.bop.deductibleOptions || [];
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 

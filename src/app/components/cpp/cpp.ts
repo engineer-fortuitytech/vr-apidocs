@@ -61,6 +61,7 @@ export class Cpp implements OnInit {
   roofShapeValues: FieldValue[] = CONTENT.cpp.roofShapeValues;
   roofCoverValues: FieldValue[] = CONTENT.cpp.roofCoverValues;
   exteriorMaterialValues: FieldValue[] = CONTENT.cpp.exteriorMaterialValues;
+  deductibleOptions: FieldValue[] = CONTENT.cpp.deductibleOptions || [];
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 

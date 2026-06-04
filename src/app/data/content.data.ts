@@ -19,6 +19,7 @@ export interface PageContent {
   roofShapeValues: FieldValue[];
   roofCoverValues: FieldValue[];
   exteriorMaterialValues: FieldValue[];
+  deductibleOptions?: FieldValue[];
 }
 
 export interface MainFeature {
@@ -94,6 +95,18 @@ export const EXTERIOR_MATERIAL_VALUES: FieldValue[] = [
   { value: 'Masonry Non-Combustible', description: 'Masonry walls with non-combustible floor and roof (ISO Class 4)' },
   { value: 'Modified Fire Resistive', description: 'Fire-resistive construction with some combustible elements (ISO Class 5)' },
   { value: 'Fire Resistive', description: 'Reinforced concrete or protected steel — fully fire-resistive (ISO Class 6)' },
+];
+
+export const CPP_DEDUCTIBLE_OPTIONS: FieldValue[] = [
+  { value: 'All Other Wind Deductible', description: '$10,000, $25,000, $50,000, $100,000' },
+  { value: 'Named Storm Deductible', description: '3%, 5%, 10%' },
+  { value: 'All Other Perils Deductible', description: '$1,000, $2,500, $5,000, $10,000' }
+];
+
+export const BOP_DEDUCTIBLE_OPTIONS: FieldValue[] = [
+  { value: 'Windstorm or Hail Deductible', description: 'None, 1%, 2%, 5%, 10%' },
+  { value: 'Named Storm Deductible', description: '3%, 5%, 10%' },
+  { value: 'All Other Perils Deductible', description: '$2,500, $5,000, $7,500, $10,000' }
 ];
 
 export const BOP_SAMPLE_ROWS: SampleRow[] = [
@@ -200,7 +213,21 @@ export const BOP_SAMPLE_ROWS: SampleRow[] = [
   "appetiteCheckId": "fbed2705-598e-4378-8409-86918e081f8a",
   "producerId": "28543",
   "verificationQuestion": "Yes",
-  "coverageType": "WNDAOP"
+  "coverageType": "WNDAOP",
+  "deductibles":[
+    {
+        "name":"Windstorm or Hail Deductible",
+        "value":"1"   
+    },
+    {
+        "name":"Named Storm Deductible",
+        "value":"3"
+    },
+    {
+        "name":"All Other Perils Deductible",
+        "value":"2500"
+    }
+  ]
 }`,
     response: `{
   "CheckId": "fbed2705-598e-4378-8409-86918e081f8a",
@@ -350,7 +377,21 @@ export const CPP_SAMPLE_ROWS: SampleRow[] = [
   "appetiteCheckId": "4923910d-3861-4ecc-b78a-fe724bd16bd1",
   "producerId": "19712",
   "verificationQuestion": "Yes",
-  "coverageType": "WNDAOP"
+  "coverageType": "WNDAOP",
+  "deductibles":[
+    {
+        "name":"All Other Wind Deductible",
+        "value":"10000"   
+    },
+    {
+        "name":"Named Storm Deductible",
+        "value":"3"
+    },
+    {
+        "name":"All Other Perils Deductible",
+        "value":"2500"
+    }
+  ]
 }`,
     response: `{
   "CheckId": "4923910d-3861-4ecc-b78a-fe724bd16bd1",
@@ -609,12 +650,14 @@ export const CONTENT: AllContent = {
     roofShapeValues: ROOF_SHAPE_VALUES,
     roofCoverValues: ROOF_COVER_VALUES,
     exteriorMaterialValues: EXTERIOR_MATERIAL_VALUES,
+    deductibleOptions: BOP_DEDUCTIBLE_OPTIONS,
   },
   cpp: {
     sampleRows: CPP_SAMPLE_ROWS,
     roofShapeValues: ROOF_SHAPE_VALUES,
     roofCoverValues: ROOF_COVER_VALUES,
     exteriorMaterialValues: EXTERIOR_MATERIAL_VALUES,
+    deductibleOptions: CPP_DEDUCTIBLE_OPTIONS,
   },
   risk: {
     sampleRows: RISK_SAMPLE_ROWS,

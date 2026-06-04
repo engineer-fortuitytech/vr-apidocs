@@ -137,7 +137,21 @@ POST: /v1/RiskAppetiteChecker/CheckAppetite
     "appetiteCheckId": "4923910d-3861-4ecc-b78a-fe724bd16bd1",
     "producerId": "19712",
     "verificationQuestion": "Yes",
-    "coverageType": "WNDAOP"
+    "coverageType": "WNDAOP",
+    "deductibles":[
+    {
+        "name":"All Other Wind Deductible",
+        "value":"10000"   
+    },
+    {
+        "name":"Named Storm Deductible",
+        "value":"3"
+    },
+    {
+        "name":"All Other Perils Deductible",
+        "value":"2500"
+    }
+  ]
 }`
     }
 ];
