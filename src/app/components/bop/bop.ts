@@ -57,6 +57,8 @@ export class Bop implements OnInit {
 
   sampleRows: SampleRow[] = CONTENT.bop.sampleRows.map(r => ({ ...r }));
 
+  propertyCoverages = CONTENT.bop.propertyCoverages;
+
   roofShapeValues: FieldValue[] = CONTENT.bop.roofShapeValues;
   roofCoverValues: FieldValue[] = CONTENT.bop.roofCoverValues;
   exteriorMaterialValues: FieldValue[] = CONTENT.bop.exteriorMaterialValues;

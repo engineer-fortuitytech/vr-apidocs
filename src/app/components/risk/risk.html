@@ -132,6 +132,34 @@
                     request objects.
                 </p>
 
+                <div class="mb-6">
+                    <h3 class="text-[0.75rem] font-semibold text-sky-400 mb-2">
+                        <code class="font-mono">PropertyCoverages</code>
+                    </h3>
+                    <div class="rounded-xl border border-slate-700/80 bg-slate-950/80 overflow-x-auto">
+                        <table class="min-w-full text-xs text-left" aria-label="PropertyCoverages available values">
+                            <thead class="bg-slate-900/80 text-slate-400">
+                                <tr>
+                                    <th scope="col" class="px-3 py-1.5 border-b border-slate-700/80 font-medium">Name</th>
+                                    <th scope="col" class="px-3 py-1.5 border-b border-slate-700/80 font-medium">Description</th>
+                                    <th scope="col" class="px-3 py-1.5 border-b border-slate-700/80 font-medium">Type</th>
+                                    <th scope="col" class="px-3 py-1.5 border-b border-slate-700/80 font-medium text-right">Limit</th>
+                                    <th scope="col" class="px-3 py-1.5 border-b border-slate-700/80 font-medium text-right">Deductible</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let coverage of propertyCoverages" class="border-t border-slate-800/60 hover:bg-slate-900/40">
+                                    <td class="px-3 py-1.5 align-top whitespace-nowrap"><code class="font-mono text-[0.7rem] text-slate-100">{{ coverage.Name }}</code></td>
+                                    <td class="px-3 py-1.5 align-top text-slate-400">{{ coverage.Description }}</td>
+                                    <td class="px-3 py-1.5 align-top"><code class="font-mono text-[0.7rem] text-slate-100">{{ coverage.Type }}</code></td>
+                                    <td class="px-3 py-1.5 align-top text-slate-400 text-right">{{ coverage.Limit | number }}</td>
+                                    <td class="px-3 py-1.5 align-top text-slate-400 text-right">{{ coverage.Deductible | number }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
                 <div class="grid gap-6 md:grid-cols-3">
 
                     <!-- RoofShape -->

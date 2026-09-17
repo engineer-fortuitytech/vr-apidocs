@@ -58,6 +58,8 @@ export class Cpp implements OnInit {
 
   sampleRows: SampleRow[] = CONTENT.cpp.sampleRows.map(r => ({ ...r }));
 
+  propertyCoverages = CONTENT.cpp.propertyCoverages;
+
   roofShapeValues: FieldValue[] = CONTENT.cpp.roofShapeValues;
   roofCoverValues: FieldValue[] = CONTENT.cpp.roofCoverValues;
   exteriorMaterialValues: FieldValue[] = CONTENT.cpp.exteriorMaterialValues;

@@ -49,6 +49,8 @@ export class Risk implements OnInit {
 
   sampleRows: SampleRow[] = CONTENT.risk.sampleRows.map(r => ({ ...r }));
 
+  propertyCoverages = CONTENT.risk.propertyCoverages;
+
   roofShapeValues: FieldValue[] = CONTENT.risk.roofShapeValues;
   roofCoverValues: FieldValue[] = CONTENT.risk.roofCoverValues;
   exteriorMaterialValues: FieldValue[] = CONTENT.risk.exteriorMaterialValues;

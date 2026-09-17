@@ -14,7 +14,54 @@ export interface SampleRow {
   expanded: boolean;
 }
 
+export interface PropertyCoverage {
+  Name: string;
+  Description: string;
+  Type: string;
+  Limit: number;
+  Deductible: number;
+}
+
+export const PROPERTY_COVERAGES: PropertyCoverage[] = [
+  {
+    "Name": "Coverage A",
+    "Description": "Building",
+    "Type": "fixed",
+    "Limit": 1000000,
+    "Deductible": 0
+  },
+  {
+    "Name": "Coverage B",
+    "Description": "Other Structures",
+    "Type": "fixed",
+    "Limit": 100000,
+    "Deductible": 0
+  },
+  {
+    "Name": "Coverage C",
+    "Description": "Business Personal Property Contents Limit",
+    "Type": "fixed",
+    "Limit": 250000,
+    "Deductible": 0
+  },
+  {
+    "Name": "Coverage C",
+    "Description": "Tenant Improvements and Betterment",
+    "Type": "fixed",
+    "Limit": 50000,
+    "Deductible": 0
+  },
+  {
+    "Name": "Coverage D",
+    "Description": "Business Income",
+    "Type": "fixed",
+    "Limit": 200000,
+    "Deductible": 0
+  }
+];
+
 export interface PageContent {
+  propertyCoverages: PropertyCoverage[];
   sampleRows: SampleRow[];
   roofShapeValues: FieldValue[];
   roofCoverValues: FieldValue[];
@@ -647,6 +694,7 @@ export const CONTENT: AllContent = {
   main: MAIN_CONTENT,
   bop: {
     sampleRows: BOP_SAMPLE_ROWS,
+    propertyCoverages: PROPERTY_COVERAGES,
     roofShapeValues: ROOF_SHAPE_VALUES,
     roofCoverValues: ROOF_COVER_VALUES,
     exteriorMaterialValues: EXTERIOR_MATERIAL_VALUES,
@@ -654,6 +702,7 @@ export const CONTENT: AllContent = {
   },
   cpp: {
     sampleRows: CPP_SAMPLE_ROWS,
+    propertyCoverages: PROPERTY_COVERAGES,
     roofShapeValues: ROOF_SHAPE_VALUES,
     roofCoverValues: ROOF_COVER_VALUES,
     exteriorMaterialValues: EXTERIOR_MATERIAL_VALUES,
@@ -661,6 +710,7 @@ export const CONTENT: AllContent = {
   },
   risk: {
     sampleRows: RISK_SAMPLE_ROWS,
+    propertyCoverages: PROPERTY_COVERAGES,
     roofShapeValues: ROOF_SHAPE_VALUES,
     roofCoverValues: ROOF_COVER_VALUES,
     exteriorMaterialValues: EXTERIOR_MATERIAL_VALUES,
